@@ -1,7 +1,7 @@
 extends MeshInstance3D
 
 @onready var deselected_material = self.mesh.material.duplicate();
-const selected_color =  Color(0.4, 0.2, 0.5);
+const selected_color =  Color(0.1, 0.6, 0.1);
 
 
 func get_selected():
@@ -11,4 +11,4 @@ func get_selected():
 
 
 func get_deselected():
-	self.mesh.material = deselected_material;	
+	self.mesh.material = deselected_material;

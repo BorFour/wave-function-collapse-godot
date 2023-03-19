@@ -4,6 +4,8 @@ const n_rows: int = 4;
 const n_columns: int = 4;
 const n_boxes: int = 4;
 
+const valid_numbers = [1, 2, 3, 4];
+
 @onready var cells = [
 	$MiniSudokuCell1,
 	$MiniSudokuCell2,
@@ -71,9 +73,69 @@ func _ready():
 			var cell_index = cells.find(cell)
 			cell_to_box[cell_index] = box_number
 
-
+ 
 func reset_board():
 	var apply_safe_reset = func asdf(x):
 		x.safe_reset()
 
 	cells.map(apply_safe_reset)
+
+
+func get_possible_plays(cell_index: int) -> Array:
+	var cell_row_index = cell_to_row[cell_index]
+	var cell_column_index = cell_to_column[cell_index]
+	var cell_box_index = cell_to_box[cell_index]
+	
+	# If the cell already selected a number, it can't make any plays
+	if cells[cell_index]._is_number_selected():
+		return []
+	
+	var neighbors = Array()
+	
+	for neighbor_cell in rows[cell_row_index] + columns[cell_column_index] + boxes[cell_box_index]:
+		if not neighbors.has(neighbor_cell):
+			neighbors.append(neighbor_cell)
+
+	var numbers_played_in_neighbors = (
+		neighbors
+		.filter(func(x): return x._is_number_selected())
+		.map(func(x): return x.get_meta("SelectedNumber"))
+	)
+
+	var valid_plays_for_cell = (
+		valid_numbers
+		.filter(func(x): return not numbers_played_in_neighbors.has(x))
+	)
+
+	return valid_plays_for_cell
+
+func run():
+	var all_cells_possible_plays = Array()
+	var cells_indeces = range(cells.size())
+
+	for i in cells_indeces:
+		all_cells_possible_plays.append(get_possible_plays(i))
+		
+	assert(all_cells_possible_plays.size() == cells.size())
+	
+	var zip_indeces_possible_plays = Array()
+	
+	for i in cells_indeces:
+		zip_indeces_possible_plays.append(
+			[i, all_cells_possible_plays[i].size(), all_cells_possible_plays[i]]
+		)
+	
+	zip_indeces_possible_plays.sort_custom(func (x, y): return x[1] < y[1])
+	
+	var min_non_zero_value = (
+		zip_indeces_possible_plays
+		.map(func(x): return x[1])
+		.filter(func(x): return x > 0)
+		.min()
+	)
+	
+	print(min_non_zero_value)
+	
+	var collapse_candidates = zip_indeces_possible_plays.filter(func(x): return x[1] == min_non_zero_value)
+	
+	print(collapse_candidates)

@@ -1,8 +1,20 @@
-[gd_scene load_steps=5 format=3 uid="uid://b22ec7sgot18j"]
+[gd_scene load_steps=6 format=3 uid="uid://b22ec7sgot18j"]
 
 [ext_resource type="Script" path="res://scenes/3d_mini_sudoku.gd" id="1_a2g3k"]
 [ext_resource type="PackedScene" uid="uid://dm3wwtbhkfp3n" path="res://prefabs/mini_sudoku_cell.tscn" id="1_n87ae"]
 [ext_resource type="Script" path="res://scenes/MiniSudokuBoard.gd" id="2_mbsyg"]
+
+[sub_resource type="GDScript" id="GDScript_ugv0h"]
+script/source = "extends Button
+
+
+@onready var mini_sudoku_board = $\"../../MiniSudokuBoard\";
+
+
+func _pressed():
+	print(\"Run!\")
+	mini_sudoku_board.run()
+"
 
 [sub_resource type="GDScript" id="GDScript_qplc8"]
 script/source = "extends Button
@@ -89,7 +101,12 @@ offset_bottom = 31.0
 grow_horizontal = 0
 grow_vertical = 0
 
-[node name="Button" type="Button" parent="BoxContainer"]
+[node name="RunAlgorithmButton" type="Button" parent="BoxContainer"]
+layout_mode = 2
+text = "Run!"
+script = SubResource("GDScript_ugv0h")
+
+[node name="ResetBoardButton" type="Button" parent="BoxContainer"]
 layout_mode = 2
 text = "Reset Board"
 script = SubResource("GDScript_qplc8")

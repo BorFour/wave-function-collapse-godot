@@ -53,10 +53,16 @@ func click_number_cell_by_number(num: int):
 
 	select_mutex.lock()
 	can_click = false;
-	print("Click after mutex")
 	
-	if get_meta("SelectedNumber") >= 1:
-		assert(get_meta("SelectedNumber") == num)
+	var selected_number = get_meta("SelectedNumber");
+	if selected_number >= 1:
+		
+		if selected_number != num:
+			print("Oopsie")
+			can_click = true;
+			select_mutex.unlock()
+			return
+
 		_delect_selected_number()
 	else:
 		_select_number_cell_by_number(num)

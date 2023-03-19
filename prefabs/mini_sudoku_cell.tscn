@@ -8,19 +8,19 @@ albedo_color = Color(0.956863, 0.956863, 0.956863, 1)
 metallic = 0.26
 metallic_specular = 0.42
 
-[sub_resource type="PlaneMesh" id="PlaneMesh_j8022"]
+[sub_resource type="PlaneMesh" id="PlaneMesh_8786v"]
 resource_local_to_scene = true
 material = SubResource("StandardMaterial3D_xnw5e")
 
-[sub_resource type="PlaneMesh" id="PlaneMesh_t5ka3"]
+[sub_resource type="PlaneMesh" id="PlaneMesh_exbur"]
 resource_local_to_scene = true
 material = SubResource("StandardMaterial3D_xnw5e")
 
-[sub_resource type="PlaneMesh" id="PlaneMesh_pl45n"]
+[sub_resource type="PlaneMesh" id="PlaneMesh_oloov"]
 resource_local_to_scene = true
 material = SubResource("StandardMaterial3D_xnw5e")
 
-[sub_resource type="PlaneMesh" id="PlaneMesh_yg68u"]
+[sub_resource type="PlaneMesh" id="PlaneMesh_k65mr"]
 resource_local_to_scene = true
 material = SubResource("StandardMaterial3D_xnw5e")
 
@@ -29,20 +29,20 @@ script = ExtResource("1_hyt13")
 metadata/SelectedNumber = -1
 
 [node name="Row1Column1" parent="." instance=ExtResource("1_qdjsb")]
-mesh = SubResource("PlaneMesh_j8022")
+mesh = SubResource("PlaneMesh_8786v")
 metadata/CellNumber = 1
 
 [node name="Row1Column2" parent="." instance=ExtResource("1_qdjsb")]
 transform = Transform3D(0.5, 0, 0, 0, -2.18557e-08, -0.5, 0, 0.5, -2.18557e-08, 0.5, 1.5, 0)
-mesh = SubResource("PlaneMesh_t5ka3")
+mesh = SubResource("PlaneMesh_exbur")
 metadata/CellNumber = 2
 
 [node name="Row2Column1" parent="." instance=ExtResource("1_qdjsb")]
 transform = Transform3D(0.5, 0, 0, 0, -2.18557e-08, -0.5, 0, 0.5, -2.18557e-08, -0.5, 0.5, 0)
-mesh = SubResource("PlaneMesh_pl45n")
+mesh = SubResource("PlaneMesh_oloov")
 metadata/CellNumber = 3
 
 [node name="Row2Column2" parent="." instance=ExtResource("1_qdjsb")]
 transform = Transform3D(0.5, 0, 0, 0, -2.18557e-08, -0.5, 0, 0.5, -2.18557e-08, 0.5, 0.5, 0)
-mesh = SubResource("PlaneMesh_yg68u")
+mesh = SubResource("PlaneMesh_k65mr")
 metadata/CellNumber = 4

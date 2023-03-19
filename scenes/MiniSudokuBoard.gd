@@ -6,7 +6,7 @@ const n_boxes: int = 4;
 
 const valid_numbers = [1, 2, 3, 4];
 
-const algorithm_step_seconds: float = 1.0;
+@onready var algorithm_step_seconds_slider: Slider = $"../VBoxContainer/SecondsBetweenStepsSlider";
 
 @onready var cells = [
 	$MiniSudokuCell1,
@@ -166,7 +166,7 @@ func run():
 
 		if not can_continue:
 			break
-
-		await get_tree().create_timer(algorithm_step_seconds).timeout
+		
+		await get_tree().create_timer(algorithm_step_seconds_slider.value).timeout
 
 	print("Done!")

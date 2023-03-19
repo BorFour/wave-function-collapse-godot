@@ -127,3 +127,29 @@ script = SubResource("GDScript_1x3l8")
 layout_mode = 2
 text = "Reset Board"
 script = SubResource("GDScript_qplc8")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -250.997
+offset_top = -73.768
+offset_right = -9.99731
+offset_bottom = -27.768
+grow_horizontal = 0
+grow_vertical = 0
+
+[node name="SecondsBetweenStepsSlider" type="HSlider" parent="VBoxContainer"]
+clip_contents = true
+layout_mode = 2
+max_value = 5.0
+step = 0.1
+value = 1.0
+scrollable = false
+tick_count = 5
+
+[node name="Label" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+text = "Seconds between steps"

@@ -141,6 +141,19 @@ func get_collapasable_candidates() -> Array:
 	
 	return collapse_candidates
 
+func try_to_select_number(cell_node: Node3D, selected_play: int):
+	var cell_index = cells.find(cell_node);
+	
+	if (
+		not cell_node._is_number_selected()
+		and not get_possible_plays(cell_index).has(selected_play)
+	):
+#		print("Selection not possible")
+		return
+	
+	cell_node.safe_select_number(selected_play)
+	propagate()
+
 
 func propagate():
 	for cell_index in range(cells.size()):

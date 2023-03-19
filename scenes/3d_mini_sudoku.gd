@@ -1,6 +1,7 @@
 extends Node3D
 
 @onready var camera = $Camera3D;
+@onready var mini_sudoku_board = $MiniSudokuBoard;
 
 
 func raycast_from_camera_to_mouse() -> Node:
@@ -32,6 +33,6 @@ func _unhandled_input(event):
 		
 		if collider != null:
 			var cell_number_node = collider.get_parent()
-
 			var number_selected = cell_number_node.get_meta("CellNumber")
-			cell_number_node.get_parent().click_number_cell_by_number(number_selected)
+
+			mini_sudoku_board.try_to_select_number(cell_number_node.get_parent(), number_selected)

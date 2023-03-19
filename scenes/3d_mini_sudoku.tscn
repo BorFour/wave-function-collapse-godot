@@ -7,19 +7,58 @@
 script = ExtResource("1_a2g3k")
 
 [node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 2, 3)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4, 5.5)
 
 [node name="MiniSudokuBoard" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0055902, 0, 0.000499487)
 
-[node name="Container" type="Control" parent="."]
-layout_mode = 3
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
+[node name="MiniSudokuCell1" parent="MiniSudokuBoard" instance=ExtResource("1_n87ae")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 6, 0)
 
-[node name="MiniSudokuCell" parent="Container" instance=ExtResource("1_n87ae")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
+[node name="MiniSudokuCell2" parent="MiniSudokuBoard" instance=ExtResource("1_n87ae")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 6, 0)
+
+[node name="MiniSudokuCell3" parent="MiniSudokuBoard" instance=ExtResource("1_n87ae")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 6, 0)
+
+[node name="MiniSudokuCell4" parent="MiniSudokuBoard" instance=ExtResource("1_n87ae")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 6, 0)
+
+[node name="MiniSudokuCell5" parent="MiniSudokuBoard" instance=ExtResource("1_n87ae")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 4, 0)
+
+[node name="MiniSudokuCell6" parent="MiniSudokuBoard" instance=ExtResource("1_n87ae")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 4, 0)
+
+[node name="MiniSudokuCell7" parent="MiniSudokuBoard" instance=ExtResource("1_n87ae")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 4, 0)
+
+[node name="MiniSudokuCell8" parent="MiniSudokuBoard" instance=ExtResource("1_n87ae")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 4, 0)
+
+[node name="MiniSudokuCell9" parent="MiniSudokuBoard" instance=ExtResource("1_n87ae")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 2, 0)
+
+[node name="MiniSudokuCell10" parent="MiniSudokuBoard" instance=ExtResource("1_n87ae")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 2, 0)
+
+[node name="MiniSudokuCell11" parent="MiniSudokuBoard" instance=ExtResource("1_n87ae")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 2, 0)
+
+[node name="MiniSudokuCell12" parent="MiniSudokuBoard" instance=ExtResource("1_n87ae")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 2, 0)
+
+[node name="MiniSudokuCell13" parent="MiniSudokuBoard" instance=ExtResource("1_n87ae")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 0, 0)
+
+[node name="MiniSudokuCell14" parent="MiniSudokuBoard" instance=ExtResource("1_n87ae")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, 0)
+
+[node name="MiniSudokuCell15" parent="MiniSudokuBoard" instance=ExtResource("1_n87ae")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 0)
+
+[node name="MiniSudokuCell16" parent="MiniSudokuBoard" instance=ExtResource("1_n87ae")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 0, 0)
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.86151, 2.30288, 6.06795)

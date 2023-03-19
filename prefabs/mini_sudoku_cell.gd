@@ -70,6 +70,17 @@ func safe_reset():
 		select_mutex.unlock()
 				
 
+func safe_select_number(num: int):
+	select_mutex.lock()
+	can_click = false;
+	
+	if not _is_number_selected():
+		_select_number_cell_by_number(num)
+	else:	
+		can_click = true;
+		select_mutex.unlock()
+
+
 func click_number_cell_by_number(num: int):
 	if not can_click:
 		return

@@ -6,6 +6,8 @@ const n_boxes: int = 4;
 
 const valid_numbers = [1, 2, 3, 4];
 
+const algorithm_step_seconds: float = 1.0;
+
 @onready var cells = [
 	$MiniSudokuCell1,
 	$MiniSudokuCell2,
@@ -109,13 +111,14 @@ func get_possible_plays(cell_index: int) -> Array:
 
 	return valid_plays_for_cell
 
-func run():
+func get_collapasable_candidates() -> Array:
 	var all_cells_possible_plays = Array()
 	var cells_indeces = range(cells.size())
 
 	for i in cells_indeces:
 		all_cells_possible_plays.append(get_possible_plays(i))
 		
+	# Make sure these have the same length before "zipping"
 	assert(all_cells_possible_plays.size() == cells.size())
 	
 	var zip_indeces_possible_plays = Array()
@@ -134,8 +137,27 @@ func run():
 		.min()
 	)
 	
-	print(min_non_zero_value)
-	
 	var collapse_candidates = zip_indeces_possible_plays.filter(func(x): return x[1] == min_non_zero_value)
 	
-	print(collapse_candidates)
+	return collapse_candidates
+
+
+func collapse_one_wave(candidates: Array):
+	var selected_candidate = candidates.pick_random()
+	var selected_play = selected_candidate[2].pick_random()
+	
+	cells[selected_candidate[0]].safe_select_number(selected_play)
+
+
+func run():
+	while true:
+		var candidates = get_collapasable_candidates()
+		
+		if candidates.size() == 0:
+			break
+
+		collapse_one_wave(candidates)
+
+		await get_tree().create_timer(algorithm_step_seconds).timeout
+	
+	print("Done!")

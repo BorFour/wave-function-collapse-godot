@@ -27,14 +27,22 @@ var rows = {}
 var columns = {}
 var boxes = {}
 
+var cell_to_row = {}
+var cell_to_column = {}
+var cell_to_box = {}
+
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	# Calculate rows, top down
 	for row_number in range(1, n_rows + 1):
 		rows[row_number] = cells.slice((row_number - 1) * 4, row_number * 4)
-	
-#	print(rows)
-	
+
+	for row_number in rows.keys():
+		for cell in rows[row_number]:
+			var cell_index = cells.find(cell)
+			cell_to_row[cell_index] = row_number
+
 	# Calculate columns, from left to right
 	for column_number in range(1, n_columns + 1):
 		var column_array = Array()
@@ -42,20 +50,26 @@ func _ready():
 			column_array.append(cells[(column_number - 1) + 4 * i])
 		
 		columns[column_number] = column_array
-	
-#	print(columns)
+
+	for column_number in columns.keys():
+		for cell in columns[column_number]:
+			var cell_index = cells.find(cell)
+			cell_to_column[cell_index] = column_number
 
 	# Calculate boxes, first from left to right then up down
 	for box_number in range(1, n_boxes + 1):
 		var box_array = Array()
 		var top_left_index = ((box_number - 1) % 2) * 2 + floor((box_number - 1) / 2) * 8
-			
+
 		for offset in [0, 1, 4, 5]:
 			box_array.append(cells[top_left_index + offset])
 		
 		boxes[box_number] = box_array
-	
-#	print(boxes)
+
+	for box_number in boxes.keys():
+		for cell in boxes[box_number]:
+			var cell_index = cells.find(cell)
+			cell_to_box[cell_index] = box_number
 
 
 func reset_board():

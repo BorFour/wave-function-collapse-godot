@@ -1,20 +1,45 @@
-[gd_scene load_steps=2 format=3 uid="uid://dm3wwtbhkfp3n"]
+[gd_scene load_steps=7 format=3 uid="uid://dm3wwtbhkfp3n"]
 
 [ext_resource type="PackedScene" uid="uid://dr8n563y4dsx7" path="res://prefabs/mini_sudoku_cell_number.tscn" id="1_qdjsb"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_xnw5e"]
+albedo_color = Color(0.956863, 0.956863, 0.956863, 1)
+metallic = 0.26
+metallic_specular = 0.42
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_xrtk8"]
+resource_local_to_scene = true
+material = SubResource("StandardMaterial3D_xnw5e")
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_s01l4"]
+resource_local_to_scene = true
+material = SubResource("StandardMaterial3D_xnw5e")
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_h3c1l"]
+resource_local_to_scene = true
+material = SubResource("StandardMaterial3D_xnw5e")
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_xh8ij"]
+resource_local_to_scene = true
+material = SubResource("StandardMaterial3D_xnw5e")
 
 [node name="MiniSudokuCell" type="Node3D"]
 
 [node name="Row1Column1" parent="." instance=ExtResource("1_qdjsb")]
+mesh = SubResource("PlaneMesh_xrtk8")
 metadata/CellNumber = 1
 
 [node name="Row1Column2" parent="." instance=ExtResource("1_qdjsb")]
 transform = Transform3D(0.5, 0, 0, 0, -2.18557e-08, -0.5, 0, 0.5, -2.18557e-08, 0.5, 1.5, 0)
+mesh = SubResource("PlaneMesh_s01l4")
 metadata/CellNumber = 2
 
 [node name="Row2Column1" parent="." instance=ExtResource("1_qdjsb")]
 transform = Transform3D(0.5, 0, 0, 0, -2.18557e-08, -0.5, 0, 0.5, -2.18557e-08, -0.5, 0.5, 0)
+mesh = SubResource("PlaneMesh_h3c1l")
 metadata/CellNumber = 3
 
 [node name="Row2Column2" parent="." instance=ExtResource("1_qdjsb")]
 transform = Transform3D(0.5, 0, 0, 0, -2.18557e-08, -0.5, 0, 0.5, -2.18557e-08, 0.5, 0.5, 0)
+mesh = SubResource("PlaneMesh_xh8ij")
 metadata/CellNumber = 4

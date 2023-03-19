@@ -2,6 +2,7 @@ extends Node3D
 
 const n_rows: int = 4;
 const n_columns: int = 4;
+const n_boxes: int = 4;
 
 @onready var cells = [
 	$MiniSudokuCell1,
@@ -28,13 +29,30 @@ var boxes = {}
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	var row = 1;
-	var column = 1;
+	# Calculate rows, top down
+	for row_number in range(1, n_rows + 1):
+		rows[row_number] = cells.slice((row_number - 1) * 4, row_number * 4)
 	
-	for cell in cells:
-		pass
+#	print(rows)
+	
+	# Calculate columns, from left to right
+	for column_number in range(1, n_columns + 1):
+		var column_array = Array()
+		for i in range(4):
+			column_array.append(cells[(column_number - 1) + 4 * i])
+		
+		columns[column_number] = column_array
+	
+#	print(columns)
 
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	pass
+	# Calculate boxes, first from left to right then up down
+	for box_number in range(1, n_boxes + 1):
+		var box_array = Array()
+		var top_left_index = ((box_number - 1) % 2) * 2 + floor((box_number - 1) / 2) * 8
+			
+		for offset in [0, 1, 4, 5]:
+			box_array.append(cells[top_left_index + offset])
+		
+		boxes[box_number] = box_array
+	
+#	print(boxes)

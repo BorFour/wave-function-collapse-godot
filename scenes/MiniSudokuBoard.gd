@@ -149,15 +149,24 @@ func collapse_one_wave(candidates: Array):
 	cells[selected_candidate[0]].safe_select_number(selected_play)
 
 
+func step() -> bool:
+	"""Return value tells where it can keep running."""
+	var candidates = get_collapasable_candidates()
+	
+	if candidates.size() == 0:
+		return false
+
+	collapse_one_wave(candidates)
+	return true
+
+
 func run():
 	while true:
-		var candidates = get_collapasable_candidates()
-		
-		if candidates.size() == 0:
+		var can_continue = step()
+
+		if not can_continue:
 			break
 
-		collapse_one_wave(candidates)
-
 		await get_tree().create_timer(algorithm_step_seconds).timeout
-	
+
 	print("Done!")

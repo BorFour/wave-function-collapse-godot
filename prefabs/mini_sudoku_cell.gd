@@ -7,13 +7,18 @@ extends Node3D
 	4: $Row2Column2,
 }
 
+@onready var select_mutex = Mutex.new();
+@onready var can_click = true;
 const tween_animation_step_time: float = 0.3;
 
+
+func _set_can_click_to_true():
+	can_click = true;
+	
 
 func _deselect_all_cells():
 	for cell in number_cells.values():
 		cell.get_deselected()
-
 
 
 func _select_number_cell_by_number(num: int):
@@ -25,6 +30,7 @@ func _select_number_cell_by_number(num: int):
 
 	tween.tween_property(cell_to_select, "position", Vector3(0, 1, 0.1), tween_animation_step_time)
 	tween.tween_property(cell_to_select, "scale", Vector3(1, 1, 1), tween_animation_step_time)
+	tween.tween_callback(_set_can_click_to_true)
 
 	set_meta("SelectedNumber", num);
 
@@ -36,13 +42,22 @@ func _delect_selected_number():
 	tween.tween_property(cell_to_select, "scale", Vector3(0.5, 0.5, 0.5), tween_animation_step_time)
 	tween.tween_property(cell_to_select, "position", cell_to_select.original_position, tween_animation_step_time)
 	tween.tween_callback(cell_to_select.get_deselected)
+	tween.tween_callback(_set_can_click_to_true)
 
 	set_meta("SelectedNumber", -1);
 
 
 func click_number_cell_by_number(num: int):
+	if not can_click:
+		return
+
+	select_mutex.lock()
+	can_click = false;
+	print("Click after mutex")
+	
 	if get_meta("SelectedNumber") >= 1:
 		assert(get_meta("SelectedNumber") == num)
 		_delect_selected_number()
 	else:
 		_select_number_cell_by_number(num)
+	select_mutex.unlock()

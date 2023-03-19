@@ -1,0 +1,20 @@
+[gd_scene load_steps=2 format=3 uid="uid://dm3wwtbhkfp3n"]
+
+[ext_resource type="PackedScene" uid="uid://dr8n563y4dsx7" path="res://prefabs/mini_sudoku_cell_number.tscn" id="1_qdjsb"]
+
+[node name="MiniSudokuCell" type="Node3D"]
+
+[node name="Row1Column1" parent="." instance=ExtResource("1_qdjsb")]
+metadata/CellNumber = 1
+
+[node name="Row1Column2" parent="." instance=ExtResource("1_qdjsb")]
+transform = Transform3D(0.5, 0, 0, 0, -2.18557e-08, -0.5, 0, 0.5, -2.18557e-08, 0.5, 1.5, 0)
+metadata/CellNumber = 2
+
+[node name="Row2Column1" parent="." instance=ExtResource("1_qdjsb")]
+transform = Transform3D(0.5, 0, 0, 0, -2.18557e-08, -0.5, 0, 0.5, -2.18557e-08, -0.5, 0.5, 0)
+metadata/CellNumber = 3
+
+[node name="Row2Column2" parent="." instance=ExtResource("1_qdjsb")]
+transform = Transform3D(0.5, 0, 0, 0, -2.18557e-08, -0.5, 0, 0.5, -2.18557e-08, 0.5, 0.5, 0)
+metadata/CellNumber = 4

@@ -1,0 +1,35 @@
+[gd_scene load_steps=6 format=3 uid="uid://dr8n563y4dsx7"]
+
+[ext_resource type="Script" path="res://prefabs/NumberText.gd" id="1_0khfo"]
+[ext_resource type="Script" path="res://prefabs/mini_sudoku_cell_number.gd" id="1_60lb0"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_xnw5e"]
+albedo_color = Color(0.956863, 0.956863, 0.956863, 1)
+metallic = 0.26
+metallic_specular = 0.42
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_t6xc4"]
+material = SubResource("StandardMaterial3D_xnw5e")
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_oey44"]
+size = Vector3(1.88024, 1.86179, 0.192323)
+
+[node name="MiniSudokuCellNumber" type="MeshInstance3D"]
+transform = Transform3D(0.5, 0, 0, 0, -2.18557e-08, -0.5, 0, 0.5, -2.18557e-08, -0.5, 1.5, 0)
+mesh = SubResource("PlaneMesh_t6xc4")
+script = ExtResource("1_60lb0")
+metadata/CellNumber = 0
+
+[node name="NumberText" type="Label3D" parent="."]
+transform = Transform3D(5.99999, -0.0127758, -5.58448e-10, 0, -2.62268e-07, 6, -0.0127758, -5.99999, -2.62268e-07, 0, 0.01, 0)
+alpha_antialiasing_mode = 1
+alpha_antialiasing_edge = 0.38
+modulate = Color(0, 0, 0, 1)
+outline_modulate = Color(0.709804, 0.709804, 0.709804, 1)
+text = "0"
+outline_size = 2
+script = ExtResource("1_0khfo")
+
+[node name="SelectionCollider" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0)
+shape = SubResource("BoxShape3D_oey44")

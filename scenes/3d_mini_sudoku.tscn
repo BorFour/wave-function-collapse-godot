@@ -1,10 +1,25 @@
-[gd_scene load_steps=2 format=3 uid="uid://dtw2f3gl17wyu"]
+[gd_scene load_steps=3 format=3 uid="uid://b22ec7sgot18j"]
 
-[ext_resource type="PackedScene" uid="uid://dm3wwtbhkfp3n" path="res://scenes/mini_sudoku_cell.tscn" id="1_n87ae"]
+[ext_resource type="Script" path="res://scenes/3d_mini_sudoku.gd" id="1_a2g3k"]
+[ext_resource type="PackedScene" uid="uid://dm3wwtbhkfp3n" path="res://prefabs/mini_sudoku_cell.tscn" id="1_n87ae"]
 
 [node name="3D mini sudoku" type="Node3D"]
-
-[node name="MiniSudokuCell" parent="." instance=ExtResource("1_n87ae")]
+script = ExtResource("1_a2g3k")
 
 [node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 2)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 2, 3)
+
+[node name="MiniSudokuBoard" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0055902, 0, 0.000499487)
+
+[node name="Container" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="MiniSudokuCell" parent="Container" instance=ExtResource("1_n87ae")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0946069, 2.05676, 0)
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.86151, 2.30288, 6.06795)

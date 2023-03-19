@@ -23,13 +23,16 @@ func _deselect_all_cells():
 
 func _select_number_cell_by_number(num: int):
 	var cell_to_select = number_cells[num];
-	var tween = get_tree().create_tween().bind_node(self).set_trans(Tween.TRANS_ELASTIC)
+	var tween = get_tree().create_tween().bind_node(self)
 	_deselect_all_cells()
 
 	cell_to_select.get_selected()
 
-	tween.tween_property(cell_to_select, "position", Vector3(0, 1, 0.1), tween_animation_step_time)
+	tween.set_parallel(Tween.TRANS_ELASTIC)
+	tween.tween_property(cell_to_select, "position", Vector3(0, 1, 0.01), tween_animation_step_time)
 	tween.tween_property(cell_to_select, "scale", Vector3(1, 1, 1), tween_animation_step_time)
+
+	tween.set_trans(Tween.TRANS_ELASTIC)
 	tween.tween_callback(_set_can_click_to_true)
 
 	set_meta("SelectedNumber", num);
@@ -37,10 +40,13 @@ func _select_number_cell_by_number(num: int):
 
 func _delect_selected_number():
 	var cell_to_select = number_cells[get_meta("SelectedNumber")];
-	var tween = get_tree().create_tween().bind_node(self).set_trans(Tween.TRANS_ELASTIC)
+	var tween = get_tree().create_tween().bind_node(self)
 	
+	tween.set_parallel(Tween.TRANS_ELASTIC)
 	tween.tween_property(cell_to_select, "scale", Vector3(0.5, 0.5, 0.5), tween_animation_step_time)
 	tween.tween_property(cell_to_select, "position", cell_to_select.original_position, tween_animation_step_time)
+	
+	tween.set_trans(Tween.TRANS_ELASTIC)
 	tween.tween_callback(cell_to_select.get_deselected)
 	tween.tween_callback(_set_can_click_to_true)
 

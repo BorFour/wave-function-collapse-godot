@@ -16,6 +16,10 @@ func _set_can_click_to_true():
 	can_click = true;
 	
 
+func _is_number_selected() -> bool:
+	return get_meta("SelectedNumber") >= 1
+	
+
 func _deselect_all_cells():
 	for cell in number_cells.values():
 		cell.get_deselected()
@@ -55,6 +59,17 @@ func _delect_selected_number():
 	set_meta("SelectedNumber", -1);
 
 
+func safe_reset():
+	select_mutex.lock()
+	can_click = false;
+	
+	if _is_number_selected():
+		_delect_selected_number()
+	else:	
+		can_click = true;
+		select_mutex.unlock()
+				
+
 func click_number_cell_by_number(num: int):
 	if not can_click:
 		return
@@ -63,8 +78,7 @@ func click_number_cell_by_number(num: int):
 	can_click = false;
 	
 	var selected_number = get_meta("SelectedNumber");
-	if selected_number >= 1:
-		
+	if _is_number_selected():
 		if selected_number != num:
 			print("Oopsie")
 			can_click = true;

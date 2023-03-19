@@ -56,3 +56,10 @@ func _ready():
 		boxes[box_number] = box_array
 	
 #	print(boxes)
+
+
+func reset_board():
+	var apply_safe_reset = func asdf(x):
+		x.safe_reset()
+
+	cells.map(apply_safe_reset)

@@ -18,7 +18,7 @@ func raycast_from_camera_to_mouse() -> Node:
 	
 	var raycast_result = space.intersect_ray(ray_query)
 	
-	return raycast_result.collider
+	return raycast_result.collider if raycast_result.has("collider") else null
 
 
 func _unhandled_input(event):
@@ -29,7 +29,9 @@ func _unhandled_input(event):
 	):
 
 		var collider = raycast_from_camera_to_mouse()
-		var cell_number_node = collider.get_parent()
+		
+		if collider != null:
+			var cell_number_node = collider.get_parent()
 
-		var number_selected = cell_number_node.get_meta("CellNumber")
-		cell_number_node.get_parent().select_number_cell_by_number(number_selected)
+			var number_selected = cell_number_node.get_meta("CellNumber")
+			cell_number_node.get_parent().select_number_cell_by_number(number_selected)

@@ -11,4 +11,4 @@ func get_selected():
 
 
 func get_deselected():
-	self.mesh.material = deselected_material;
+	self.mesh.material = deselected_material;	

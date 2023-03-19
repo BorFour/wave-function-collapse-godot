@@ -1,13 +1,10 @@
 extends Node3D
 
 @onready var camera = $Camera3D;
-var ray;
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	ray = RayCast3D.new()
-	ray.set_enabled(true)
-	ray.set_name("RayCast_cells")
+	pass
 
 
 func raycast_from_camera_to_mouse() -> Node:
@@ -26,6 +23,7 @@ func raycast_from_camera_to_mouse() -> Node:
 	
 	return raycast_result.collider
 
+
 func _unhandled_input(event):
 	if (
 		event is InputEventMouseButton
@@ -41,5 +39,3 @@ func _unhandled_input(event):
 		var cell_number_material = cell_number_node.mesh.material.duplicate();
 		cell_number_material.albedo_color = Color(0.5, 0, 0)
 		cell_number_node.mesh.material = cell_number_material;
-
-

@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://dm3wwtbhkfp3n"]
+[gd_scene load_steps=9 format=3 uid="uid://dm3wwtbhkfp3n"]
 
 [ext_resource type="Script" path="res://prefabs/mini_sudoku_cell.gd" id="1_hyt13"]
 [ext_resource type="PackedScene" uid="uid://dr8n563y4dsx7" path="res://prefabs/mini_sudoku_cell_number.tscn" id="1_qdjsb"]
@@ -8,19 +8,23 @@ albedo_color = Color(0.956863, 0.956863, 0.956863, 1)
 metallic = 0.26
 metallic_specular = 0.42
 
-[sub_resource type="PlaneMesh" id="PlaneMesh_8786v"]
+[sub_resource type="PlaneMesh" id="PlaneMesh_pvgn5"]
 resource_local_to_scene = true
 material = SubResource("StandardMaterial3D_xnw5e")
 
-[sub_resource type="PlaneMesh" id="PlaneMesh_exbur"]
+[sub_resource type="PlaneMesh" id="PlaneMesh_n11lw"]
 resource_local_to_scene = true
 material = SubResource("StandardMaterial3D_xnw5e")
 
-[sub_resource type="PlaneMesh" id="PlaneMesh_oloov"]
+[sub_resource type="PlaneMesh" id="PlaneMesh_2uda8"]
 resource_local_to_scene = true
 material = SubResource("StandardMaterial3D_xnw5e")
 
-[sub_resource type="PlaneMesh" id="PlaneMesh_k65mr"]
+[sub_resource type="PlaneMesh" id="PlaneMesh_dg4d3"]
+resource_local_to_scene = true
+material = SubResource("StandardMaterial3D_xnw5e")
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_h7gc5"]
 resource_local_to_scene = true
 material = SubResource("StandardMaterial3D_xnw5e")
 
@@ -29,20 +33,24 @@ script = ExtResource("1_hyt13")
 metadata/SelectedNumber = -1
 
 [node name="Row1Column1" parent="." instance=ExtResource("1_qdjsb")]
-mesh = SubResource("PlaneMesh_8786v")
+mesh = SubResource("PlaneMesh_pvgn5")
 metadata/CellNumber = 1
 
 [node name="Row1Column2" parent="." instance=ExtResource("1_qdjsb")]
 transform = Transform3D(0.5, 0, 0, 0, -2.18557e-08, -0.5, 0, 0.5, -2.18557e-08, 0.5, 1.5, 0)
-mesh = SubResource("PlaneMesh_exbur")
+mesh = SubResource("PlaneMesh_n11lw")
 metadata/CellNumber = 2
 
 [node name="Row2Column1" parent="." instance=ExtResource("1_qdjsb")]
 transform = Transform3D(0.5, 0, 0, 0, -2.18557e-08, -0.5, 0, 0.5, -2.18557e-08, -0.5, 0.5, 0)
-mesh = SubResource("PlaneMesh_oloov")
+mesh = SubResource("PlaneMesh_2uda8")
 metadata/CellNumber = 3
 
 [node name="Row2Column2" parent="." instance=ExtResource("1_qdjsb")]
 transform = Transform3D(0.5, 0, 0, 0, -2.18557e-08, -0.5, 0, 0.5, -2.18557e-08, 0.5, 0.5, 0)
-mesh = SubResource("PlaneMesh_k65mr")
+mesh = SubResource("PlaneMesh_dg4d3")
 metadata/CellNumber = 4
+
+[node name="BackgroundMesh" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0.003, 1, 0.001)
+mesh = SubResource("PlaneMesh_h7gc5")

@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://dtw2f3gl17wyu"]
+
+[ext_resource type="PackedScene" uid="uid://dm3wwtbhkfp3n" path="res://scenes/mini_sudoku_cell.tscn" id="1_n87ae"]
+
+[node name="3D mini sudoku" type="Node3D"]
+
+[node name="MiniSudokuCell" parent="." instance=ExtResource("1_n87ae")]
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 2)

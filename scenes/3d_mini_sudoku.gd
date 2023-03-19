@@ -34,4 +34,4 @@ func _unhandled_input(event):
 			var cell_number_node = collider.get_parent()
 
 			var number_selected = cell_number_node.get_meta("CellNumber")
-			cell_number_node.get_parent().select_number_cell_by_number(number_selected)
+			cell_number_node.get_parent().click_number_cell_by_number(number_selected)

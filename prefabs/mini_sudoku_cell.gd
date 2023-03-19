@@ -65,10 +65,12 @@ func safe_reset():
 	
 	if _is_number_selected():
 		_delect_selected_number()
-	else:	
+	else:
 		can_click = true;
 		select_mutex.unlock()
-				
+	
+	for number_cell in number_cells.values():
+		number_cell.visible = true;
 
 func safe_select_number(num: int):
 	select_mutex.lock()
@@ -79,6 +81,14 @@ func safe_select_number(num: int):
 	else:	
 		can_click = true;
 		select_mutex.unlock()
+
+func hide_unplayable_numbers(playable_numbers: Array):
+	if _is_number_selected():
+		return
+	
+	for num in number_cells.keys():
+		if not playable_numbers.has(num):
+			number_cells[num].visible = false
 
 
 func click_number_cell_by_number(num: int):

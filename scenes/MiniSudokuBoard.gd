@@ -142,6 +142,11 @@ func get_collapasable_candidates() -> Array:
 	return collapse_candidates
 
 
+func propagate():
+	for cell_index in range(cells.size()):
+		cells[cell_index].hide_unplayable_numbers(get_possible_plays(cell_index))
+
+
 func collapse_one_wave(candidates: Array):
 	var selected_candidate = candidates.pick_random()
 	var selected_play = selected_candidate[2].pick_random()
@@ -157,6 +162,7 @@ func step() -> bool:
 		return false
 
 	collapse_one_wave(candidates)
+	propagate()
 	return true
 
 

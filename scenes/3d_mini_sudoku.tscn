@@ -146,7 +146,7 @@ clip_contents = true
 layout_mode = 2
 max_value = 5.0
 step = 0.1
-value = 1.0
+value = 0.5
 scrollable = false
 tick_count = 5
 

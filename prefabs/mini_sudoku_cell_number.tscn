@@ -1,6 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://dr8n563y4dsx7"]
+[gd_scene load_steps=6 format=3 uid="uid://dr8n563y4dsx7"]
 
 [ext_resource type="Script" path="res://prefabs/NumberText.gd" id="1_0khfo"]
+[ext_resource type="Script" path="res://prefabs/mini_sudoku_cell_number.gd" id="1_60lb0"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_xnw5e"]
 albedo_color = Color(0.956863, 0.956863, 0.956863, 1)
@@ -17,6 +18,7 @@ size = Vector3(1.78834, 0.224985, 1.80672)
 [node name="MiniSudokuCellNumber" type="MeshInstance3D"]
 transform = Transform3D(0.5, 0, 0, 0, -2.18557e-08, -0.5, 0, 0.5, -2.18557e-08, -0.5, 1.5, 0)
 mesh = SubResource("PlaneMesh_t6xc4")
+script = ExtResource("1_60lb0")
 metadata/CellNumber = 0
 
 [node name="NumberText" type="Label3D" parent="."]

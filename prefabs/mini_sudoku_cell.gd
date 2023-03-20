@@ -10,11 +10,12 @@ extends Node3D
 @onready var select_mutex = Mutex.new();
 @onready var can_click = true;
 const tween_animation_step_time: float = 0.5;
+const n_shakes_incorrect_play: int = 3;
 
 
 func _set_can_click_to_true():
 	can_click = true;
-	
+
 
 func _is_number_selected() -> bool:
 	return get_meta("SelectedNumber") >= 1
@@ -110,3 +111,25 @@ func click_number_cell_by_number(num: int):
 	else:
 		_select_number_cell_by_number(num)
 	select_mutex.unlock()
+	
+func shake_incorrect_play():
+	"""Shakes when the player tries to play an incorrect number in this cell."""
+	
+	if not can_click:
+		return
+
+	select_mutex.lock()
+	can_click = false;
+
+	var original_position = position;
+	var tween = get_tree().create_tween().bind_node(self)
+	
+	tween.set_trans(Tween.TRANS_SINE)
+	for i in range(n_shakes_incorrect_play):
+		tween.tween_property(self, "position", Vector3(original_position.x + 0.075, original_position.y, original_position.z + 0.1), 0.1)
+		tween.tween_property(self, "position", Vector3(original_position.x - 0.075, original_position.y, original_position.z + 0.1), 0.1)
+	tween.tween_property(self, "position", original_position, 0.1)
+	
+	tween.tween_callback(_set_can_click_to_true)
+	select_mutex.unlock();
+	

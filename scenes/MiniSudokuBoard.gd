@@ -110,6 +110,19 @@ func get_possible_plays(cell_index: int) -> Array:
 	)
 
 	return valid_plays_for_cell
+	
+
+func has_mininum_entropy(cell_index: int) -> bool:
+	
+	var min_nonzero_entropy = (
+		range(cells.size())
+		.map(func(x): return get_possible_plays(x).size())
+		.filter(func(x): return x > 0)
+		.min()
+	)
+
+	return get_possible_plays(cell_index).size() == min_nonzero_entropy
+
 
 func get_collapasable_candidates() -> Array:
 	var all_cells_possible_plays = Array()
@@ -149,6 +162,11 @@ func try_to_select_number(cell_node: Node3D, selected_play: int):
 		and not get_possible_plays(cell_index).has(selected_play)
 	):
 #		print("Selection not possible")
+		return
+	elif (
+		not has_mininum_entropy(cell_index)
+	):
+		cell_node.shake_incorrect_play()
 		return
 	
 	cell_node.safe_select_number(selected_play)

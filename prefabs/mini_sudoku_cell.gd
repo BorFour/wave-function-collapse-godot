@@ -35,7 +35,7 @@ func _spawn_number_nodes():
 	for r in range(n_rows):
 		for c in range(n_columns):
 			var child = cell_number_prefab.instantiate();
-			child.spawn(Vector3(r, c, 1), r * n_columns + c * n_rows)
+			child.spawn(Vector3(c, -r, 1), r * n_columns + c + 1)
 			add_child(child)
 			number_cells[r * n_columns + c + 1] = child
 

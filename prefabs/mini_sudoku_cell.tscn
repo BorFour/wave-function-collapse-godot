@@ -8,19 +8,19 @@ albedo_color = Color(0.956863, 0.956863, 0.956863, 1)
 metallic = 0.26
 metallic_specular = 0.42
 
-[sub_resource type="PlaneMesh" id="PlaneMesh_07bb6"]
+[sub_resource type="PlaneMesh" id="PlaneMesh_yy23i"]
 resource_local_to_scene = true
 material = SubResource("StandardMaterial3D_xnw5e")
 
-[sub_resource type="PlaneMesh" id="PlaneMesh_iy8uu"]
+[sub_resource type="PlaneMesh" id="PlaneMesh_ammmo"]
 resource_local_to_scene = true
 material = SubResource("StandardMaterial3D_xnw5e")
 
-[sub_resource type="PlaneMesh" id="PlaneMesh_tpsrq"]
+[sub_resource type="PlaneMesh" id="PlaneMesh_xi7g5"]
 resource_local_to_scene = true
 material = SubResource("StandardMaterial3D_xnw5e")
 
-[sub_resource type="PlaneMesh" id="PlaneMesh_bcrmi"]
+[sub_resource type="PlaneMesh" id="PlaneMesh_57v17"]
 resource_local_to_scene = true
 material = SubResource("StandardMaterial3D_xnw5e")
 
@@ -41,22 +41,26 @@ script = ExtResource("1_hyt13")
 metadata/SelectedNumber = -1
 
 [node name="Row1Column1" parent="." instance=ExtResource("1_qdjsb")]
-mesh = SubResource("PlaneMesh_07bb6")
+visible = false
+mesh = SubResource("PlaneMesh_yy23i")
 metadata/CellNumber = 1
 
 [node name="Row1Column2" parent="." instance=ExtResource("1_qdjsb")]
 transform = Transform3D(0.5, 0, 0, 0, -2.18557e-08, -0.5, 0, 0.5, -2.18557e-08, 0.5, 1.5, 0)
-mesh = SubResource("PlaneMesh_iy8uu")
+visible = false
+mesh = SubResource("PlaneMesh_ammmo")
 metadata/CellNumber = 2
 
 [node name="Row2Column1" parent="." instance=ExtResource("1_qdjsb")]
 transform = Transform3D(0.5, 0, 0, 0, -2.18557e-08, -0.5, 0, 0.5, -2.18557e-08, -0.5, 0.5, 0)
-mesh = SubResource("PlaneMesh_tpsrq")
+visible = false
+mesh = SubResource("PlaneMesh_xi7g5")
 metadata/CellNumber = 3
 
 [node name="Row2Column2" parent="." instance=ExtResource("1_qdjsb")]
 transform = Transform3D(0.5, 0, 0, 0, -2.18557e-08, -0.5, 0, 0.5, -2.18557e-08, 0.5, 0.5, 0)
-mesh = SubResource("PlaneMesh_bcrmi")
+visible = false
+mesh = SubResource("PlaneMesh_57v17")
 metadata/CellNumber = 4
 
 [node name="BackgroundMesh" type="MeshInstance3D" parent="."]

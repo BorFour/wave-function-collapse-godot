@@ -1,10 +1,10 @@
 extends Node3D
 
 @onready var number_cells = {
-	1: $Row1Column1,
-	2: $Row1Column2,
-	3: $Row2Column1,
-	4: $Row2Column2,
+#	1: $Row1Column1,
+#	2: $Row1Column2,
+#	3: $Row2Column1,
+#	4: $Row2Column2,
 }
 
 @onready var select_mutex = Mutex.new();
@@ -12,6 +12,38 @@ extends Node3D
 const tween_animation_step_time: float = 0.5;
 const n_shakes_incorrect_play: int = 3;
 
+@onready var sudoku_board = $"..";
+@onready var cell_number_prefab = preload("res://prefabs/mini_sudoku_cell_number.tscn")
+var n_rows: int;
+var n_columns: int;
+
+
+func _ready():
+	# TODO: generate dynamically the sudoku number
+	n_rows = sudoku_board.get_meta("n_rows");
+	n_columns = sudoku_board.get_meta("n_columns");
+	
+	_spawn_number_nodes()
+
+
+func _spawn_number_nodes():
+	# TODO: creates the nodes for each of the numbers and attaches them as children to the Sudoku Cell
+	# From left to right from button up, add to the dictionary using numbers from 1 to 6.
+	# FIXME: why not use an array instead? Seems a bit inconsistent with the way the board
+	# stores the reference to its cell children
+	
+	for r in range(n_rows):
+		for c in range(n_columns):
+			var child = cell_number_prefab.instantiate();
+			child.spawn(Vector3(r, c, 1), r * n_columns + c * n_rows)
+			add_child(child)
+			number_cells[r * n_columns + c + 1] = child
+
+func spawn(spawn_position: Vector3):
+	"""This method is called when the prefab is spawned dynamically."""
+
+	position = spawn_position
+	
 
 func _set_can_click_to_true():
 	can_click = true;

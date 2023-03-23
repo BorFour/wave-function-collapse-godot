@@ -1,31 +1,30 @@
 extends Node3D
 
-const n_rows: int = 4;
-const n_columns: int = 4;
-const n_boxes: int = 4;
-
-const valid_numbers = [1, 2, 3, 4];
-
 @onready var algorithm_step_seconds_slider: Slider = $"../VBoxContainer/SecondsBetweenStepsSlider";
-
+@onready var cell_prefab = preload("res://prefabs/mini_sudoku_cell.tscn")
 @onready var cells = [
-	$MiniSudokuCell1,
-	$MiniSudokuCell2,
-	$MiniSudokuCell3,
-	$MiniSudokuCell4,
-	$MiniSudokuCell5,
-	$MiniSudokuCell6,
-	$MiniSudokuCell7,
-	$MiniSudokuCell8,
-	$MiniSudokuCell9,
-	$MiniSudokuCell10,
-	$MiniSudokuCell11,
-	$MiniSudokuCell12,
-	$MiniSudokuCell13,
-	$MiniSudokuCell14,
-	$MiniSudokuCell15,
-	$MiniSudokuCell16,
+#	$MiniSudokuCell1,
+#	$MiniSudokuCell2,
+#	$MiniSudokuCell3,
+#	$MiniSudokuCell4,
+#	$MiniSudokuCell5,
+#	$MiniSudokuCell6,
+#	$MiniSudokuCell7,
+#	$MiniSudokuCell8,
+#	$MiniSudokuCell9,
+#	$MiniSudokuCell10,
+#	$MiniSudokuCell11,
+#	$MiniSudokuCell12,
+#	$MiniSudokuCell13,
+#	$MiniSudokuCell14,
+#	$MiniSudokuCell15,
+#	$MiniSudokuCell16,
 ]
+
+var n_rows: int;
+var n_columns: int;
+var board_size: int;
+var valid_numbers: Array;
 
 var rows = {}
 var columns = {}
@@ -36,11 +35,37 @@ var cell_to_column = {}
 var cell_to_box = {}
 
 
-# Called when the node enters the scene tree for the first time.
 func _ready():
+	assert(get_meta("n_rows") > 0, "The number of rows must be a positive number")
+	assert(get_meta("n_columns") > 0, "The number of columns must be a positive number")
+
+	n_rows = get_meta("n_rows");
+	n_columns = get_meta("n_columns");
+	board_size = n_rows * n_columns;
+	valid_numbers = range(1, board_size + 1);
+
+	_spawn_cells()
+	_initialize_data_structures()
+	
+	print(cell_to_row.size())
+	print(cell_to_column.size())
+	print(cell_to_box.size())
+
+
+func _spawn_cells():
+	for r in range(board_size):
+		for c in range(board_size):
+			var child = cell_prefab.instantiate();
+			
+			child.spawn(Vector3(r * n_rows, c * n_columns , 1))
+			add_child(child)
+			cells.append(child)
+
+
+func _initialize_data_structures():
 	# Calculate rows, top down
-	for row_number in range(1, n_rows + 1):
-		rows[row_number] = cells.slice((row_number - 1) * 4, row_number * 4)
+	for row_number in range(1, board_size + 1):
+		rows[row_number] = cells.slice((row_number - 1) * board_size, row_number * board_size)
 
 	for row_number in rows.keys():
 		for cell in rows[row_number]:
@@ -48,10 +73,10 @@ func _ready():
 			cell_to_row[cell_index] = row_number
 
 	# Calculate columns, from left to right
-	for column_number in range(1, n_columns + 1):
+	for column_number in range(1, board_size + 1):
 		var column_array = Array()
-		for i in range(4):
-			column_array.append(cells[(column_number - 1) + 4 * i])
+		for i in range(board_size):
+			column_array.append(cells[(column_number - 1) + board_size * i])
 		
 		columns[column_number] = column_array
 
@@ -61,11 +86,16 @@ func _ready():
 			cell_to_column[cell_index] = column_number
 
 	# Calculate boxes, first from left to right then up down
-	for box_number in range(1, n_boxes + 1):
+	for box_number in range(1, board_size + 1):
 		var box_array = Array()
-		var top_left_index = ((box_number - 1) % 2) * 2 + floor((box_number - 1) / 2) * 8
+		var top_left_index = floor((box_number - 1) / n_rows) * board_size * 2 + ((box_number - 1) % n_rows) * n_columns;
 
-		for offset in [0, 1, 4, 5]:
+		# FIXME: come up with formula
+		var box_indices = Array()
+		for r in range(n_rows):
+			box_indices.append_array(range(r * board_size, r * board_size + n_columns));
+		
+		for offset in box_indices:
 			box_array.append(cells[top_left_index + offset])
 		
 		boxes[box_number] = box_array

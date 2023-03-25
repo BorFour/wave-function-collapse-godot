@@ -83,16 +83,18 @@ func _initialize_data_structures():
 			var cell_index = cells.find(cell)
 			cell_to_column[cell_index] = column_number
 
-	# Calculate boxes, first from left to right then up down
-	for box_number in range(1, board_size + 1):
-		var box_array = Array()
-		var top_left_index = floor((box_number - 1) / n_rows) * board_size * 2 + ((box_number - 1) % n_rows) * n_columns;
 
-		# FIXME: come up with formula
+	# Calculate the "offsets" of the elements in the box
 		var box_indices = Array()
 		for r in range(n_rows):
 			box_indices.append_array(range(r * board_size, r * board_size + n_columns));
 		
+	# Calculate boxes, first from left to right then up down
+	for box_number in range(1, board_size + 1):
+		var box_array = Array()
+		var top_left_index = floor((box_number - 1) / n_rows) * board_size * n_rows + ((box_number - 1) % n_rows) * n_columns;
+
+		# Add the offsets to the top left cell index
 		for offset in box_indices:
 			box_array.append(cells[top_left_index + offset])
 		

@@ -4,6 +4,16 @@ extends Node3D
 @onready var mini_sudoku_board = $MiniSudokuBoard;
 
 
+func _ready():
+	position_camera()
+
+
+func position_camera():
+	var n_rows = mini_sudoku_board.get_meta("n_rows")
+	var n_columns = mini_sudoku_board.get_meta("n_columns")
+	camera.position = Vector3(0, 0,(pow(max(n_rows, n_columns), 2) * 6))
+
+
 func raycast_from_camera_to_mouse() -> Node:
 	var mouse_pos = get_viewport().get_mouse_position()
 	var ray_length = 100

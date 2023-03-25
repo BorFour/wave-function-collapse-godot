@@ -83,8 +83,8 @@ func _select_number_cell_by_number(num: int):
 
 	tween.set_trans(Tween.TRANS_ELASTIC)
 	tween.set_parallel(true)
-	tween.tween_property(cell_to_select, "position", Vector3(0, 1, 0.01), tween_animation_step_time)
-	tween.tween_property(cell_to_select, "scale", Vector3(1, 1, 1), tween_animation_step_time)
+	tween.tween_property(cell_to_select, "position", Vector3(0.5, 0.5, 0.01), tween_animation_step_time)
+	tween.tween_property(cell_to_select, "scale", Vector3(1.5, 1, 1), tween_animation_step_time)
 
 	tween.set_parallel(false)
 	tween.tween_callback(_set_can_click_to_true)
@@ -98,7 +98,7 @@ func _delect_selected_number():
 	
 	tween.set_trans(Tween.TRANS_ELASTIC)
 	tween.set_parallel(true)
-	tween.tween_property(cell_to_select, "scale", Vector3(0.5, 0.5, 0.5), tween_animation_step_time)
+	tween.tween_property(cell_to_select, "scale", Vector3(1, 1, 1), tween_animation_step_time)
 	tween.tween_property(cell_to_select, "position", cell_to_select.original_position, tween_animation_step_time)
 	
 	tween.set_parallel(false)

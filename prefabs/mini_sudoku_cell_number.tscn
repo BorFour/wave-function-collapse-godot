@@ -16,20 +16,20 @@ material = SubResource("StandardMaterial3D_xnw5e")
 size = Vector3(1.78834, 0.224985, 1.80672)
 
 [node name="MiniSudokuCellNumber" type="MeshInstance3D"]
-transform = Transform3D(0.5, 0, 0, 0, -2.18557e-08, -0.5, 0, 0.5, -2.18557e-08, -0.5, 1.5, 0)
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, -0.5, 1.5, 0)
 layers = 2
 mesh = SubResource("PlaneMesh_t6xc4")
 script = ExtResource("1_60lb0")
 metadata/CellNumber = 0
 
 [node name="NumberText" type="Label3D" parent="."]
-transform = Transform3D(0.999998, -0.0021293, -9.30747e-11, 0, -4.37114e-08, 1, -0.0021293, -0.999998, -4.37113e-08, 0, 0.01, 0)
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0)
 alpha_antialiasing_mode = 1
 alpha_antialiasing_edge = 0.38
 modulate = Color(0, 0, 0, 1)
 outline_modulate = Color(0.709804, 0.709804, 0.709804, 1)
 text = "0"
-font_size = 250
+font_size = 150
 outline_size = 5
 script = ExtResource("1_0khfo")
 

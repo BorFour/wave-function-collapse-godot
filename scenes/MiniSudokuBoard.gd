@@ -35,9 +35,6 @@ func _ready():
 
 	_spawn_cells()
 	_initialize_data_structures()
-	print(cell_to_row.size())
-	print(cell_to_column.size())
-	print(cell_to_box.size())
 	
 
 func _spawn_cells():

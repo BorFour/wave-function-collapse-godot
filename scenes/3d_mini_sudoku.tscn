@@ -43,15 +43,14 @@ func _pressed():
 
 [node name="3D mini sudoku" type="Node3D"]
 script = ExtResource("1_a2g3k")
-metadata/N = 3
 
 [node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7, 0, 20)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15, -5, 40)
 
 [node name="MiniSudokuBoard" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0055902, 0, 0.000499487)
 script = ExtResource("2_mbsyg")
-metadata/n_rows = 2
+metadata/n_rows = 3
 metadata/n_columns = 3
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]

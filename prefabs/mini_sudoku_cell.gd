@@ -25,6 +25,7 @@ func _ready():
 	n_columns = sudoku_board.get_meta("n_columns");
 	_spawn_number_nodes()
 	_spawn_background()
+	$Border.scale = Vector3(n_columns, n_rows, 1)
 
 
 func _spawn_number_nodes():

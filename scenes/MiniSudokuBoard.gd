@@ -48,6 +48,9 @@ func _ready():
 
 	_spawn_cells()
 	_initialize_data_structures()
+	print(cell_to_row.size())
+	print(cell_to_column.size())
+	print(cell_to_box.size())
 	
 
 func _spawn_cells():
@@ -85,9 +88,9 @@ func _initialize_data_structures():
 
 
 	# Calculate the "offsets" of the elements in the box
-		var box_indices = Array()
-		for r in range(n_rows):
-			box_indices.append_array(range(r * board_size, r * board_size + n_columns));
+	var box_indices = Array()
+	for r in range(n_rows):
+		box_indices.append_array(range(r * board_size, r * board_size + n_columns));
 		
 	# Calculate boxes, first from left to right then up down
 	for box_number in range(1, board_size + 1):

@@ -1,11 +1,6 @@
 extends Node3D
 
-@onready var number_cells = {
-#	1: $Row1Column1,
-#	2: $Row1Column2,
-#	3: $Row2Column1,
-#	4: $Row2Column2,
-}
+@onready var number_cells = {}
 
 @onready var select_mutex = Mutex.new();
 @onready var can_click = true;
@@ -26,7 +21,11 @@ func _ready():
 	_spawn_number_nodes()
 	_spawn_background()
 	$Border.scale = Vector3(n_columns, n_rows, 1)
-	$Border.position = Vector3(n_columns / 2.0 - 1, $Border.position.y, $Border.position.z)
+	$Border.position = Vector3(n_columns / 2.0 - 1, - (n_rows / 2.0 - 1) , $Border.position.z)
+
+
+func __cell_number_position(column_number: int, row_number: int) -> Vector3:
+	return Vector3(column_number * 2 - n_columns / 2.0, -(row_number * 2 - n_rows / 2.0) , 0);
 
 
 func _spawn_number_nodes():
@@ -38,7 +37,7 @@ func _spawn_number_nodes():
 		for c in range(n_columns):
 			var child = cell_number_prefab.instantiate();
 			child.spawn(
-				Vector3(c * 2 - n_columns / 2.0, (n_rows - 1 - r * 2) , 0),
+				__cell_number_position(c, r),
 				r * n_columns + c + 1
 			);
 			add_child(child)
@@ -51,13 +50,12 @@ func _spawn_background():
 	for r in range(n_rows):
 		for c in range(n_columns):
 			var child = background_cell_number_prefab.instantiate();
-			child.position = Vector3(c * 2 - n_columns / 2.0, (n_rows - 1 - r * 2) , 0);
+			child.position = __cell_number_position(c, r)
 			add_child(child)
 
 
 func spawn(spawn_position: Vector3):
 	"""This method is called when the prefab is spawned dynamically."""
-
 	position = spawn_position
 	
 

@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://b22ec7sgot18j"]
+[gd_scene load_steps=8 format=3 uid="uid://b22ec7sgot18j"]
 
 [ext_resource type="Script" path="res://scenes/3d_mini_sudoku.gd" id="1_a2g3k"]
 [ext_resource type="Script" path="res://scenes/MiniSudokuBoard.gd" id="2_mbsyg"]
@@ -39,19 +39,23 @@ func _pressed():
 	mini_sudoku_board.reset_board()
 "
 
-[sub_resource type="CapsuleMesh" id="CapsuleMesh_nxq25"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8qnab"]
+albedo_color = Color(0.65098, 0.137255, 0.168627, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_raiwv"]
+material = SubResource("StandardMaterial3D_8qnab")
 
 [node name="3D mini sudoku" type="Node3D"]
 script = ExtResource("1_a2g3k")
 
 [node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15, -5, 40)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15, 0, 40)
 
 [node name="MiniSudokuBoard" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0055902, 0, 0.000499487)
 script = ExtResource("2_mbsyg")
-metadata/n_rows = 3
-metadata/n_columns = 3
+metadata/n_rows = 4
+metadata/n_columns = 4
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.86151, 2.30288, 6.06795)
@@ -110,5 +114,4 @@ layout_mode = 2
 text = "Seconds between steps"
 
 [node name="Capsule00" type="MeshInstance3D" parent="."]
-visible = false
-mesh = SubResource("CapsuleMesh_nxq25")
+mesh = SubResource("SphereMesh_raiwv")

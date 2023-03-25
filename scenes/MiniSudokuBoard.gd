@@ -2,24 +2,7 @@ extends Node3D
 
 @onready var algorithm_step_seconds_slider: Slider = $"../VBoxContainer/SecondsBetweenStepsSlider";
 @onready var cell_prefab = preload("res://prefabs/mini_sudoku_cell.tscn")
-@onready var cells = [
-#	$MiniSudokuCell1,
-#	$MiniSudokuCell2,
-#	$MiniSudokuCell3,
-#	$MiniSudokuCell4,
-#	$MiniSudokuCell5,
-#	$MiniSudokuCell6,
-#	$MiniSudokuCell7,
-#	$MiniSudokuCell8,
-#	$MiniSudokuCell9,
-#	$MiniSudokuCell10,
-#	$MiniSudokuCell11,
-#	$MiniSudokuCell12,
-#	$MiniSudokuCell13,
-#	$MiniSudokuCell14,
-#	$MiniSudokuCell15,
-#	$MiniSudokuCell16,
-]
+@onready var cells = []
 
 var n_rows: int;
 var n_columns: int;
@@ -44,7 +27,11 @@ func _ready():
 	board_size = n_rows * n_columns;
 	valid_numbers = range(1, board_size + 1);
 
-	position = Vector3(-board_size * 2, board_size * 2, 0)
+	position = Vector3(
+		-(board_size * n_columns - 1),
+		(board_size * n_rows - 1),
+		0
+	)
 
 	_spawn_cells()
 	_initialize_data_structures()
@@ -58,7 +45,9 @@ func _spawn_cells():
 		for c in range(board_size):
 			var child = cell_prefab.instantiate();
 			
-			child.spawn(Vector3(2 * c * n_columns, - 2 * r * n_rows, 0))
+			child.spawn(
+				Vector3(2 * c * n_columns + n_columns / 2.0, -(2 * r * n_rows + n_rows / 2.0), 0)
+			)
 			add_child(child)
 			cells.append(child)
 

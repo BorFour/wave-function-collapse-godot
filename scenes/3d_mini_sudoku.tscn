@@ -100,18 +100,19 @@ offset_bottom = -27.768
 grow_horizontal = 0
 grow_vertical = 0
 
-[node name="SecondsBetweenStepsSlider" type="HSlider" parent="VBoxContainer"]
+[node name="SpeedSlider" type="HSlider" parent="VBoxContainer"]
 clip_contents = true
 layout_mode = 2
-max_value = 5.0
-step = 0.1
+min_value = 0.01
+max_value = 1.0
+step = 0.01
 value = 0.5
 scrollable = false
-tick_count = 5
 
 [node name="Label" type="Label" parent="VBoxContainer"]
 layout_mode = 2
-text = "Seconds between steps"
+text = "Speed"
+horizontal_alignment = 1
 
 [node name="Capsule00" type="MeshInstance3D" parent="."]
 mesh = SubResource("SphereMesh_raiwv")

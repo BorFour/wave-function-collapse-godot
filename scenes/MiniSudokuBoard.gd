@@ -1,8 +1,9 @@
 extends Node3D
 
-@onready var algorithm_step_seconds_slider: Slider = $"../VBoxContainer/SecondsBetweenStepsSlider";
+@onready var algorithm_speed_slider: Slider = $"../VBoxContainer/SpeedSlider";
 @onready var cell_prefab = preload("res://prefabs/mini_sudoku_cell.tscn")
 @onready var cells = []
+const max_seconds_step: float = 2;
 
 var n_rows: int;
 var n_columns: int;
@@ -225,6 +226,7 @@ func run():
 		if not can_continue:
 			break
 		
-		await get_tree().create_timer(algorithm_step_seconds_slider.value).timeout
+		# Wait for the inverse of the value of the slider
+		await get_tree().create_timer((1 - sqrt(algorithm_speed_slider.value)) * max_seconds_step).timeout
 
 	print("Done!")

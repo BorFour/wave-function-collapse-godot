@@ -15,7 +15,7 @@ func raycast_from_camera_to_mouse() -> Node:
 	var ray_query = PhysicsRayQueryParameters3D.new()
 	ray_query.from = from
 	ray_query.to = to
-	ray_query.collide_with_areas = true
+	ray_query.collision_mask = 2
 	
 	var raycast_result = space.intersect_ray(ray_query)
 	

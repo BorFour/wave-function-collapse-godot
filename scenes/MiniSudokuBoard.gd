@@ -44,20 +44,18 @@ func _ready():
 	board_size = n_rows * n_columns;
 	valid_numbers = range(1, board_size + 1);
 
+	position = Vector3(-board_size*2, board_size , 0)
+
 	_spawn_cells()
 	_initialize_data_structures()
 	
-	print(cell_to_row.size())
-	print(cell_to_column.size())
-	print(cell_to_box.size())
-
 
 func _spawn_cells():
 	for r in range(board_size):
 		for c in range(board_size):
 			var child = cell_prefab.instantiate();
 			
-			child.spawn(Vector3(r * n_rows, c * n_columns , 1))
+			child.spawn(Vector3(c * n_columns, - r * n_rows, 1))
 			add_child(child)
 			cells.append(child)
 
@@ -133,6 +131,8 @@ func get_possible_plays(cell_index: int) -> Array:
 		.filter(func(x): return x._is_number_selected())
 		.map(func(x): return x.get_meta("SelectedNumber"))
 	)
+	
+#	print(numbers_played_in_neighbors)
 
 	var valid_plays_for_cell = (
 		valid_numbers
@@ -191,7 +191,7 @@ func try_to_select_number(cell_node: Node3D, selected_play: int):
 		not cell_node._is_number_selected()
 		and not get_possible_plays(cell_index).has(selected_play)
 	):
-#		print("Selection not possible")
+		# Selection not possible
 		return
 	elif (
 		not has_mininum_entropy(cell_index)

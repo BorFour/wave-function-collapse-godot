@@ -14,6 +14,7 @@ const n_shakes_incorrect_play: int = 3;
 
 @onready var sudoku_board = $"..";
 @onready var cell_number_prefab = preload("res://prefabs/mini_sudoku_cell_number.tscn")
+@onready var background_cell_number_prefab = preload("res://prefabs/background_cell_number.tscn")
 var n_rows: int;
 var n_columns: int;
 
@@ -22,22 +23,35 @@ func _ready():
 	# TODO: generate dynamically the sudoku number
 	n_rows = sudoku_board.get_meta("n_rows");
 	n_columns = sudoku_board.get_meta("n_columns");
-	
 	_spawn_number_nodes()
+	_spawn_background()
 
 
 func _spawn_number_nodes():
 	# TODO: creates the nodes for each of the numbers and attaches them as children to the Sudoku Cell
 	# From left to right from button up, add to the dictionary using numbers from 1 to 6.
 	# FIXME: why not use an array instead? Seems a bit inconsistent with the way the board
-	# stores the reference to its cell children
-	
+	# stores the reference to its cell children	
 	for r in range(n_rows):
 		for c in range(n_columns):
 			var child = cell_number_prefab.instantiate();
-			child.spawn(Vector3(c, -r, 1), r * n_columns + c + 1)
+			child.spawn(
+				Vector3(c - n_columns / 2 + 0.5, -r + n_rows / 2 , 1),
+				r * n_columns + c + 1
+			);
 			add_child(child)
+			# Add the cell number to the data structure
 			number_cells[r * n_columns + c + 1] = child
+
+
+func _spawn_background():
+	"""Spawn the canvas behind the numbers"""
+	for r in range(n_rows):
+		for c in range(n_columns):
+			var child = background_cell_number_prefab.instantiate();
+			child.position = Vector3(c - n_columns / 2 + 0.5, -r + n_rows / 2 , 1);
+			add_child(child)
+
 
 func spawn(spawn_position: Vector3):
 	"""This method is called when the prefab is spawned dynamically."""
@@ -54,7 +68,9 @@ func _is_number_selected() -> bool:
 	
 
 func _deselect_all_cells():
+	print(number_cells)
 	for cell in number_cells.values():
+#		print(cell)
 		cell.get_deselected()
 
 
@@ -105,6 +121,7 @@ func safe_reset():
 	for number_cell in number_cells.values():
 		number_cell.visible = true;
 
+
 func safe_select_number(num: int):
 	select_mutex.lock()
 	can_click = false;
@@ -114,6 +131,7 @@ func safe_select_number(num: int):
 	else:	
 		can_click = true;
 		select_mutex.unlock()
+
 
 func hide_unplayable_numbers(playable_numbers: Array):
 	if _is_number_selected():

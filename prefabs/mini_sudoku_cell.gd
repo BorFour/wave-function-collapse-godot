@@ -36,7 +36,7 @@ func _spawn_number_nodes():
 		for c in range(n_columns):
 			var child = cell_number_prefab.instantiate();
 			child.spawn(
-				Vector3(c - n_columns / 2 + 0.5, -r + n_rows / 2 , 1),
+				Vector3(c - n_columns / 2 + 0.5, -r + n_rows / 2 , 0),
 				r * n_columns + c + 1
 			);
 			add_child(child)
@@ -49,7 +49,7 @@ func _spawn_background():
 	for r in range(n_rows):
 		for c in range(n_columns):
 			var child = background_cell_number_prefab.instantiate();
-			child.position = Vector3(c - n_columns / 2 + 0.5, -r + n_rows / 2 , 1);
+			child.position = Vector3(c - n_columns / 2 + 0.5, -r + n_rows / 2 , 0);
 			add_child(child)
 
 

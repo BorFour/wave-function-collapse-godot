@@ -15,7 +15,6 @@ script = ExtResource("1_hyt13")
 metadata/SelectedNumber = -1
 
 [node name="BorderAndBackground" type="Node3D" parent="."]
-transform = Transform3D(2, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 visible = false
 
 [node name="Border" type="Node3D" parent="BorderAndBackground"]

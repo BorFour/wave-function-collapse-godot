@@ -16,7 +16,7 @@ material = SubResource("StandardMaterial3D_xnw5e")
 size = Vector3(1.78834, 0.224985, 1.80672)
 
 [node name="MiniSudokuCellNumber" type="MeshInstance3D"]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, -0.5, 1.5, 0)
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0)
 layers = 2
 mesh = SubResource("PlaneMesh_t6xc4")
 script = ExtResource("1_60lb0")
@@ -34,7 +34,6 @@ outline_size = 5
 script = ExtResource("1_0khfo")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0316474, 1.38333e-09, 0.0316467)
 collision_layer = 2
 collision_mask = 2
 

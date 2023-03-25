@@ -46,7 +46,7 @@ script = ExtResource("1_a2g3k")
 metadata/N = 3
 
 [node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 15)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7, 0, 20)
 
 [node name="MiniSudokuBoard" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0055902, 0, 0.000499487)

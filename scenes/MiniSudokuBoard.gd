@@ -44,7 +44,7 @@ func _ready():
 	board_size = n_rows * n_columns;
 	valid_numbers = range(1, board_size + 1);
 
-	position = Vector3(-board_size*2, board_size , 0)
+	position = Vector3(-board_size * 2, board_size * 2, 0)
 
 	_spawn_cells()
 	_initialize_data_structures()
@@ -55,7 +55,7 @@ func _spawn_cells():
 		for c in range(board_size):
 			var child = cell_prefab.instantiate();
 			
-			child.spawn(Vector3(c * n_columns, - r * n_rows, 1))
+			child.spawn(Vector3(2 * c * n_columns, - 2 * r * n_rows, 0))
 			add_child(child)
 			cells.append(child)
 

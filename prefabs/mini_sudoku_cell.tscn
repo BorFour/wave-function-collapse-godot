@@ -1,0 +1,91 @@
+[gd_scene load_steps=12 format=3 uid="uid://dm3wwtbhkfp3n"]
+
+[ext_resource type="Script" path="res://prefabs/mini_sudoku_cell.gd" id="1_hyt13"]
+[ext_resource type="PackedScene" uid="uid://dr8n563y4dsx7" path="res://prefabs/mini_sudoku_cell_number.tscn" id="1_qdjsb"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_xnw5e"]
+albedo_color = Color(0.956863, 0.956863, 0.956863, 1)
+metallic = 0.26
+metallic_specular = 0.42
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_07bb6"]
+resource_local_to_scene = true
+material = SubResource("StandardMaterial3D_xnw5e")
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_iy8uu"]
+resource_local_to_scene = true
+material = SubResource("StandardMaterial3D_xnw5e")
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_tpsrq"]
+resource_local_to_scene = true
+material = SubResource("StandardMaterial3D_xnw5e")
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_bcrmi"]
+resource_local_to_scene = true
+material = SubResource("StandardMaterial3D_xnw5e")
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_h7gc5"]
+resource_local_to_scene = true
+material = SubResource("StandardMaterial3D_xnw5e")
+
+[sub_resource type="QuadMesh" id="QuadMesh_ditto"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_rsxm5"]
+albedo_color = Color(0.0430392, 0.0430392, 0.0430392, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0wl31"]
+albedo_color = Color(0.0430392, 0.0430392, 0.0430392, 1)
+
+[node name="MiniSudokuCell" type="Node3D"]
+script = ExtResource("1_hyt13")
+metadata/SelectedNumber = -1
+
+[node name="Row1Column1" parent="." instance=ExtResource("1_qdjsb")]
+mesh = SubResource("PlaneMesh_07bb6")
+metadata/CellNumber = 1
+
+[node name="Row1Column2" parent="." instance=ExtResource("1_qdjsb")]
+transform = Transform3D(0.5, 0, 0, 0, -2.18557e-08, -0.5, 0, 0.5, -2.18557e-08, 0.5, 1.5, 0)
+mesh = SubResource("PlaneMesh_iy8uu")
+metadata/CellNumber = 2
+
+[node name="Row2Column1" parent="." instance=ExtResource("1_qdjsb")]
+transform = Transform3D(0.5, 0, 0, 0, -2.18557e-08, -0.5, 0, 0.5, -2.18557e-08, -0.5, 0.5, 0)
+mesh = SubResource("PlaneMesh_tpsrq")
+metadata/CellNumber = 3
+
+[node name="Row2Column2" parent="." instance=ExtResource("1_qdjsb")]
+transform = Transform3D(0.5, 0, 0, 0, -2.18557e-08, -0.5, 0, 0.5, -2.18557e-08, 0.5, 0.5, 0)
+mesh = SubResource("PlaneMesh_bcrmi")
+metadata/CellNumber = 4
+
+[node name="BackgroundMesh" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0.003, 1, 0.001)
+mesh = SubResource("PlaneMesh_h7gc5")
+
+[node name="Border" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.05)
+
+[node name="VerticalLeft" type="MeshInstance3D" parent="Border"]
+transform = Transform3D(0.05, 0, 0, 0, 2, 0, 0, 0, 1, -1, 1, 0)
+mesh = SubResource("QuadMesh_ditto")
+skeleton = NodePath("../..")
+surface_material_override/0 = SubResource("StandardMaterial3D_rsxm5")
+
+[node name="HorizontalUp" type="MeshInstance3D" parent="Border"]
+transform = Transform3D(-2.22928e-09, -2.05, 0, 0.051, -8.96083e-08, 0, 0, 0, 1.025, 0, 2, 0)
+mesh = SubResource("QuadMesh_ditto")
+skeleton = NodePath("../..")
+surface_material_override/0 = SubResource("StandardMaterial3D_rsxm5")
+
+[node name="HorizontalDown" type="MeshInstance3D" parent="Border"]
+transform = Transform3D(-2.22928e-09, -2.05, 0, 0.051, -8.96083e-08, 0, 0, 0, 1.025, 0, 0, 0)
+mesh = SubResource("QuadMesh_ditto")
+skeleton = NodePath("../..")
+surface_material_override/0 = SubResource("StandardMaterial3D_rsxm5")
+
+[node name="VerticalRight" type="MeshInstance3D" parent="Border"]
+transform = Transform3D(0.05, 0, 0, 0, 2, 0, 0, 0, 1, 1, 1, 0)
+mesh = SubResource("QuadMesh_ditto")
+skeleton = NodePath("../..")
+surface_material_override/0 = SubResource("StandardMaterial3D_0wl31")

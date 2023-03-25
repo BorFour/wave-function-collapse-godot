@@ -14,7 +14,7 @@ script = ExtResource("1_hyt13")
 metadata/SelectedNumber = -1
 
 [node name="Border" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5, 0, 0.02)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.02)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Border"]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 1, 0)

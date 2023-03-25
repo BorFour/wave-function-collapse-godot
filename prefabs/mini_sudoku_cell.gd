@@ -26,6 +26,7 @@ func _ready():
 	_spawn_number_nodes()
 	_spawn_background()
 	$Border.scale = Vector3(n_columns, n_rows, 1)
+	$Border.position = Vector3(n_columns / 2.0 - 1, $Border.position.y, $Border.position.z)
 
 
 func _spawn_number_nodes():
@@ -37,7 +38,7 @@ func _spawn_number_nodes():
 		for c in range(n_columns):
 			var child = cell_number_prefab.instantiate();
 			child.spawn(
-				Vector3(c * 2 - n_columns / 2 + 0.5, (n_rows - 1 - r * 2) , 0),
+				Vector3(c * 2 - n_columns / 2.0, (n_rows - 1 - r * 2) , 0),
 				r * n_columns + c + 1
 			);
 			add_child(child)
@@ -50,7 +51,7 @@ func _spawn_background():
 	for r in range(n_rows):
 		for c in range(n_columns):
 			var child = background_cell_number_prefab.instantiate();
-			child.position = Vector3(c * 2 - n_columns / 2 + 0.5, (n_rows - 1 - r * 2) , 0);
+			child.position = Vector3(c * 2 - n_columns / 2.0, (n_rows - 1 - r * 2) , 0);
 			add_child(child)
 
 
@@ -71,7 +72,6 @@ func _is_number_selected() -> bool:
 func _deselect_all_cells():
 	print(number_cells)
 	for cell in number_cells.values():
-#		print(cell)
 		cell.get_deselected()
 
 
@@ -84,7 +84,7 @@ func _select_number_cell_by_number(num: int):
 
 	tween.set_trans(Tween.TRANS_ELASTIC)
 	tween.set_parallel(true)
-	tween.tween_property(cell_to_select, "position", Vector3(n_columns / 2 + 0.5, 0, 0.01), tween_animation_step_time)
+	tween.tween_property(cell_to_select, "position", Vector3(n_columns / 2.0 - 1, 0, 0.01), tween_animation_step_time)
 	tween.tween_property(cell_to_select, "scale", Vector3(n_columns, 1, n_rows), tween_animation_step_time)
 
 	tween.set_parallel(false)

@@ -1,6 +1,6 @@
 extends Node3D
 
-@onready var number_cells = {}
+@onready var number_cells = []
 
 @onready var select_mutex = Mutex.new();
 @onready var can_click = true;
@@ -42,7 +42,7 @@ func _spawn_number_nodes():
 			);
 			add_child(child)
 			# Add the cell number to the data structure
-			number_cells[r * n_columns + c + 1] = child
+			number_cells.append(child)
 
 
 func _spawn_background():
@@ -69,7 +69,7 @@ func _is_number_selected() -> bool:
 
 func _deselect_all_cells():
 	print(number_cells)
-	for cell in number_cells.values():
+	for cell in number_cells:
 		cell.get_deselected()
 		
 		
@@ -78,7 +78,7 @@ func __center_of_cell() -> Vector3:
 
 
 func _select_number_cell_by_number(num: int):
-	var cell_to_select = number_cells[num];
+	var cell_to_select = number_cells[num - 1];
 	var tween = get_tree().create_tween().bind_node(self)
 	_deselect_all_cells()
 
@@ -96,7 +96,7 @@ func _select_number_cell_by_number(num: int):
 
 
 func _delect_selected_number():
-	var cell_to_select = number_cells[get_meta("SelectedNumber")];
+	var cell_to_select = number_cells[get_meta("SelectedNumber") - 1];
 	var tween = get_tree().create_tween().bind_node(self)
 	
 	tween.set_trans(Tween.TRANS_ELASTIC)
@@ -121,7 +121,7 @@ func safe_reset():
 		can_click = true;
 		select_mutex.unlock()
 	
-	for number_cell in number_cells.values():
+	for number_cell in number_cells:
 		number_cell.visible = true;
 
 
@@ -131,7 +131,7 @@ func safe_select_number(num: int):
 	
 	if not _is_number_selected():
 		_select_number_cell_by_number(num)
-	else:	
+	else:
 		can_click = true;
 		select_mutex.unlock()
 
@@ -140,9 +140,9 @@ func hide_unplayable_numbers(playable_numbers: Array):
 	if _is_number_selected():
 		return
 	
-	for num in number_cells.keys():
+	for num in range(1, number_cells.size() + 1):
 		if not playable_numbers.has(num):
-			number_cells[num].visible = false
+			number_cells[num - 1].visible = false
 
 
 func click_number_cell_by_number(num: int):

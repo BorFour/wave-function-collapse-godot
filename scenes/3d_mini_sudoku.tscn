@@ -110,5 +110,6 @@ tick_count = 5
 layout_mode = 2
 text = "Seconds between steps"
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+[node name="Capsule00" type="MeshInstance3D" parent="."]
+visible = false
 mesh = SubResource("CapsuleMesh_nxq25")

@@ -49,7 +49,7 @@ func _spawn_background():
 	for r in range(n_rows):
 		for c in range(n_columns):
 			var child = background_cell_number_prefab.instantiate();
-			child.position = Vector3(c - n_columns / 2 + 0.5, (n_rows - 1 - r) , 0);
+			child.position = Vector3(c * 2 - n_columns / 2 + 0.5, (n_rows - 1 - r * 2) , 0);
 			add_child(child)
 
 

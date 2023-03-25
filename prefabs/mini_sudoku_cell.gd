@@ -71,6 +71,10 @@ func _deselect_all_cells():
 	print(number_cells)
 	for cell in number_cells.values():
 		cell.get_deselected()
+		
+		
+func __center_of_cell() -> Vector3:
+	return Vector3(n_columns / 2.0 - 1, -(n_rows / 2.0 - 1), 0.01)
 
 
 func _select_number_cell_by_number(num: int):
@@ -82,7 +86,7 @@ func _select_number_cell_by_number(num: int):
 
 	tween.set_trans(Tween.TRANS_ELASTIC)
 	tween.set_parallel(true)
-	tween.tween_property(cell_to_select, "position", Vector3(n_columns / 2.0 - 1, 0, 0.01), tween_animation_step_time)
+	tween.tween_property(cell_to_select, "position", __center_of_cell(), tween_animation_step_time)
 	tween.tween_property(cell_to_select, "scale", Vector3(n_columns, 1, n_rows), tween_animation_step_time)
 
 	tween.set_parallel(false)

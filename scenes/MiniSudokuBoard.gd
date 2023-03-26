@@ -172,7 +172,7 @@ func has_mininum_entropy(cell_index: int) -> bool:
 	return get_possible_plays(cell_index).size() == min_nonzero_entropy
 
 
-func get_collapasable_candidates() -> Array:
+func get_collapsable_candidates() -> Array:
 	var all_cells_possible_plays = Array()
 	var cells_indeces = range(cells.size())
 
@@ -235,7 +235,7 @@ func collapse_one_wave(candidates: Array):
 
 func step() -> bool:
 	"""Return value tells where it can keep running."""
-	var candidates = get_collapasable_candidates()
+	var candidates = get_collapsable_candidates()
 	
 	if candidates.size() == 0:
 		return false

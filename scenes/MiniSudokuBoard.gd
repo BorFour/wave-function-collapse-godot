@@ -18,6 +18,9 @@ var cell_to_row = {}
 var cell_to_column = {}
 var cell_to_box = {}
 
+# Algorithm variables
+var is_algorithm_running: bool = false;
+
 
 func _ready():
 	assert(get_meta("n_rows") > 0, "The number of rows must be a positive number")
@@ -243,7 +246,9 @@ func step() -> bool:
 
 
 func run():
-	while true:
+	is_algorithm_running = true;
+	while is_algorithm_running:
+		print("Running step")
 		var can_continue = step()
 
 		if not can_continue:
@@ -251,5 +256,6 @@ func run():
 		
 		# Wait for the inverse of the value of the slider
 		await get_tree().create_timer((1 - sqrt(algorithm_speed_slider.value)) * max_seconds_step).timeout
-
+	
 	print("Done!")
+	is_algorithm_running = false;

@@ -42,5 +42,9 @@ func _unhandled_input(event):
 		if collider != null:
 			var cell_number_node = collider.get_parent()
 			var number_selected = cell_number_node.get_meta("CellNumber")
+			var cell_node = cell_number_node.get_parent()
 
-			mini_sudoku_board.try_to_select_number(cell_number_node.get_parent(), number_selected)
+			if cell_node.can_be_clicked():
+				mini_sudoku_board.try_to_select_number(cell_node, number_selected)
+			else:
+				print("Can't click the cell right now")

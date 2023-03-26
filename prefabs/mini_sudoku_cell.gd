@@ -57,6 +57,10 @@ func _spawn_background():
 func spawn(spawn_position: Vector3):
 	"""This method is called when the prefab is spawned dynamically."""
 	position = spawn_position
+
+
+func can_be_clicked() -> bool:
+	return can_click and not sudoku_board.is_algorithm_running;
 	
 
 func _set_can_click_to_true():
@@ -68,11 +72,10 @@ func _is_number_selected() -> bool:
 	
 
 func _deselect_all_cells():
-	print(number_cells)
 	for cell in number_cells:
 		cell.get_deselected()
-		
-		
+
+
 func __center_of_cell() -> Vector3:
 	return Vector3(n_columns / 2.0 - 1, -(n_rows / 2.0 - 1), 0.01)
 

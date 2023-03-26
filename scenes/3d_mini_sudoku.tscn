@@ -12,8 +12,11 @@ script/source = "extends Button
 
 
 func _pressed():
-	print(\"Run!\")
-	mini_sudoku_board.run()
+	if not mini_sudoku_board.is_algorithm_running:
+		print(\"Run!\")
+		mini_sudoku_board.run()
+	else:
+		print(\"Can't run algorithm again because it is already running!\")
 "
 
 [sub_resource type="GDScript" id="GDScript_1x3l8"]

@@ -16,8 +16,8 @@ var n_columns: int;
 
 func _ready():
 	# TODO: generate dynamically the sudoku number
-	n_rows = sudoku_board.get_meta("n_rows");
-	n_columns = sudoku_board.get_meta("n_columns");
+	n_rows = sudoku_board.n_rows;
+	n_columns = sudoku_board.n_columns;
 	_spawn_number_nodes()
 	_spawn_background()
 	$Border.scale = Vector3(n_columns, n_rows, 1)

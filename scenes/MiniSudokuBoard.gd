@@ -23,8 +23,16 @@ func _ready():
 	assert(get_meta("n_rows") > 0, "The number of rows must be a positive number")
 	assert(get_meta("n_columns") > 0, "The number of columns must be a positive number")
 
-	n_rows = get_meta("n_rows");
-	n_columns = get_meta("n_columns");
+	spawn(get_meta("n_rows"), get_meta("n_columns"))
+
+
+func spawn(spawn_n_rows: int, spawn_n_columns: int):
+
+	_clear_data_structures()
+
+	n_rows = spawn_n_rows
+	n_columns = spawn_n_columns
+
 	board_size = n_rows * n_columns;
 	valid_numbers = range(1, board_size + 1);
 
@@ -36,7 +44,22 @@ func _ready():
 
 	_spawn_cells()
 	_initialize_data_structures()
-	
+
+
+func _clear_data_structures():
+	for cell in cells:
+		cell.queue_free()
+		
+	cells = []
+
+	rows = {}
+	columns = {}
+	boxes = {}
+
+	cell_to_row = {}
+	cell_to_column = {}
+	cell_to_box = {}
+
 
 func _spawn_cells():
 	for r in range(board_size):

@@ -5,12 +5,10 @@ extends Node3D
 
 
 func _ready():
-	position_camera()
+	position_camera(mini_sudoku_board.get_meta("n_rows"), mini_sudoku_board.get_meta("n_columns"))
 
 
-func position_camera():
-	var n_rows = mini_sudoku_board.get_meta("n_rows")
-	var n_columns = mini_sudoku_board.get_meta("n_columns")
+func position_camera(n_rows: int, n_columns: int):
 	camera.position = Vector3(0, 0,(pow(max(n_rows, n_columns), 2) * 6))
 
 

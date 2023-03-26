@@ -47,6 +47,7 @@ func spawn(spawn_n_rows: int, spawn_n_columns: int):
 
 	_spawn_cells()
 	_initialize_data_structures()
+	_initialize_algorithm()
 
 
 func _clear_data_structures():
@@ -121,12 +122,20 @@ func _initialize_data_structures():
 			var cell_index = cells.find(cell)
 			cell_to_box[cell_index] = box_number
 
+
+func _initialize_algorithm():
+	for cell_index in range(cells.size()):
+		cells[cell_index].hide_unplayable_numbers(get_possible_plays(cell_index))
+
+	print(cells.map(func(x): return x.possible_plays.size()))
+
  
 func reset_board():
 	var apply_safe_reset = func asdf(x):
 		x.safe_reset()
 
 	cells.map(apply_safe_reset)
+	_initialize_algorithm()
 
 
 func get_possible_plays(cell_index: int) -> Array:
@@ -135,7 +144,7 @@ func get_possible_plays(cell_index: int) -> Array:
 	var cell_box_index = cell_to_box[cell_index]
 	
 	# If the cell already selected a number, it can't make any plays
-	if cells[cell_index]._is_number_selected():
+	if cells[cell_index].is_number_selected():
 		return []
 	
 	var neighbors = Array()
@@ -146,11 +155,11 @@ func get_possible_plays(cell_index: int) -> Array:
 
 	var numbers_played_in_neighbors = (
 		neighbors
-		.filter(func(x): return x._is_number_selected())
-		.map(func(x): return x.get_meta("SelectedNumber"))
+		.filter(func(x): return x.is_number_selected())
+		.map(func(x): return x.selected_number)
 	)
 	
-#	print(numbers_played_in_neighbors)
+	print(numbers_played_in_neighbors)
 
 	var valid_plays_for_cell = (
 		valid_numbers
@@ -164,20 +173,20 @@ func has_mininum_entropy(cell_index: int) -> bool:
 	
 	var min_nonzero_entropy = (
 		range(cells.size())
-		.map(func(x): return get_possible_plays(x).size())
+		.map(func(x): return x.possible_plays.size())
 		.filter(func(x): return x > 0)
 		.min()
 	)
 
-	return get_possible_plays(cell_index).size() == min_nonzero_entropy
+	return cells[cell_index].possible_plays.size() == min_nonzero_entropy
 
 
 func get_collapsable_candidates() -> Array:
 	var all_cells_possible_plays = Array()
 	var cells_indeces = range(cells.size())
 
-	for i in cells_indeces:
-		all_cells_possible_plays.append(get_possible_plays(i))
+	for cell in cells:
+		all_cells_possible_plays.append(cell.possible_plays)
 		
 	# Make sure these have the same length before "zipping"
 	assert(all_cells_possible_plays.size() == cells.size())
@@ -198,6 +207,9 @@ func get_collapsable_candidates() -> Array:
 		.min()
 	)
 	
+	print("--------------------------")
+	print("Min entropy: %s" % min_non_zero_value)
+	
 	var collapse_candidates = zip_indeces_possible_plays.filter(func(x): return x[1] == min_non_zero_value)
 	
 	return collapse_candidates
@@ -206,8 +218,8 @@ func try_to_select_number(cell_node: Node3D, selected_play: int):
 	var cell_index = cells.find(cell_node);
 	
 	if (
-		not cell_node._is_number_selected()
-		and not get_possible_plays(cell_index).has(selected_play)
+		not cell_node.is_number_selected()
+		and not cell_node.possible_plays.has(selected_play)
 	):
 		# Selection not possible
 		return
@@ -222,13 +234,27 @@ func try_to_select_number(cell_node: Node3D, selected_play: int):
 
 
 func propagate():
+	# FIXME: maybe this is not implemented correctly
 	for cell_index in range(cells.size()):
-		cells[cell_index].hide_unplayable_numbers(get_possible_plays(cell_index))
+		var cell = cells[cell_index];
+		var possible_plays = get_possible_plays(cell_index);
+
+		cell.hide_unplayable_numbers(possible_plays);
+		
+		if (
+			not cell.is_number_selected()
+			and possible_plays.size() == 0
+		):
+			print("Kapaxao??")
 
 
 func collapse_one_wave(candidates: Array):
 	var selected_candidate = candidates.pick_random()
 	var selected_play = selected_candidate[2].pick_random()
+	
+	print("Collapse with:")
+	print(selected_candidate, " -> ", selected_play)
+	
 	
 	cells[selected_candidate[0]].safe_select_number(selected_play)
 
@@ -248,7 +274,6 @@ func step() -> bool:
 func run():
 	is_algorithm_running = true;
 	while is_algorithm_running:
-		print("Running step")
 		var can_continue = step()
 
 		if not can_continue:

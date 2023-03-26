@@ -13,6 +13,11 @@ const n_shakes_incorrect_play: int = 3;
 var n_rows: int;
 var n_columns: int;
 
+var selected_number = null;
+
+# Algorithm variables
+var possible_plays: Array = []
+
 
 func _ready():
 	# TODO: generate dynamically the sudoku number
@@ -67,13 +72,13 @@ func _set_can_click_to_true():
 	can_click = true;
 
 
-func _is_number_selected() -> bool:
-	return get_meta("SelectedNumber") >= 1
+func is_number_selected() -> bool:
+	return selected_number != null and selected_number >= 1
 	
 
 func _deselect_all_cells():
-	for cell in number_cells:
-		cell.get_deselected()
+	for number_cell in number_cells:
+		number_cell.get_deselected()
 
 
 func __center_of_cell() -> Vector3:
@@ -95,11 +100,12 @@ func _select_number_cell_by_number(num: int):
 	tween.set_parallel(false)
 	tween.tween_callback(_set_can_click_to_true)
 
-	set_meta("SelectedNumber", num);
+	# Overwrite the selected_number variable with the passed parameter
+	selected_number = num;
 
 
 func _delect_selected_number():
-	var cell_to_select = number_cells[get_meta("SelectedNumber") - 1];
+	var cell_to_select = number_cells[selected_number - 1];
 	var tween = get_tree().create_tween().bind_node(self)
 	
 	tween.set_trans(Tween.TRANS_ELASTIC)
@@ -111,14 +117,15 @@ func _delect_selected_number():
 	tween.tween_callback(cell_to_select.get_deselected)
 	tween.tween_callback(_set_can_click_to_true)
 
-	set_meta("SelectedNumber", -1);
+	# Set the selected_number to null
+	selected_number = null;
 
 
 func safe_reset():
 	select_mutex.lock()
 	can_click = false;
 	
-	if _is_number_selected():
+	if is_number_selected():
 		_delect_selected_number()
 	else:
 		can_click = true;
@@ -132,20 +139,24 @@ func safe_select_number(num: int):
 	select_mutex.lock()
 	can_click = false;
 	
-	if not _is_number_selected():
+	if not is_number_selected():
 		_select_number_cell_by_number(num)
 	else:
+		print("Tried to select number while number was already selected")
 		can_click = true;
 		select_mutex.unlock()
 
 
 func hide_unplayable_numbers(playable_numbers: Array):
-	if _is_number_selected():
+	if is_number_selected():
+		possible_plays = []
 		return
 	
 	for num in range(1, number_cells.size() + 1):
 		if not playable_numbers.has(num):
 			number_cells[num - 1].visible = false
+	
+	possible_plays = playable_numbers
 
 
 func click_number_cell_by_number(num: int):
@@ -154,9 +165,8 @@ func click_number_cell_by_number(num: int):
 
 	select_mutex.lock()
 	can_click = false;
-	
-	var selected_number = get_meta("SelectedNumber");
-	if _is_number_selected():
+
+	if is_number_selected():
 		if selected_number != num:
 			print("Oopsie")
 			can_click = true;

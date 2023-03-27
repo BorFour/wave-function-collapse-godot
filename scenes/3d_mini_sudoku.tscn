@@ -150,4 +150,5 @@ text = "Number of columns"
 horizontal_alignment = 1
 
 [node name="Capsule00" type="MeshInstance3D" parent="."]
+visible = false
 mesh = SubResource("SphereMesh_raiwv")

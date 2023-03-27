@@ -1,7 +1,7 @@
 extends Node3D
 
 @onready var algorithm_speed_slider: Slider = $"../VBoxContainer/SpeedSlider";
-@onready var cell_prefab = preload("res://prefabs/mini_sudoku_cell.tscn")
+@onready var cell_prefab = preload("res://prefabs/sudoku_cell.tscn")
 @onready var cells = []
 const max_seconds_step: float = 2;
 

@@ -1,0 +1,154 @@
+[gd_scene load_steps=9 format=3]
+
+[ext_resource type="Script" path="res://scenes/3d_sudoku_scene.gd" id="1_l3kim"]
+[ext_resource type="Script" path="res://scenes/sudoku_board.gd" id="2_3vk3j"]
+[ext_resource type="Script" path="res://scenes/generate_board_button.gd" id="3_1nsou"]
+
+[sub_resource type="GDScript" id="GDScript_ugv0h"]
+script/source = "extends Button
+
+
+@onready var mini_sudoku_board = $\"../../MiniSudokuBoard\";
+
+
+func _pressed():
+	if not mini_sudoku_board.is_algorithm_running:
+		print(\"Run!\")
+		mini_sudoku_board.run()
+	else:
+		print(\"Can't run algorithm again because it is already running!\")
+"
+
+[sub_resource type="GDScript" id="GDScript_1x3l8"]
+script/source = "extends Button
+
+
+@onready var mini_sudoku_board = $\"../../MiniSudokuBoard\";
+
+
+func _pressed():
+	print(\"Step!\")
+	mini_sudoku_board.step()
+"
+
+[sub_resource type="GDScript" id="GDScript_qplc8"]
+script/source = "extends Button
+
+
+@onready var mini_sudoku_board = $\"../../MiniSudokuBoard\";
+
+
+func _pressed():
+	print(\"Reset board pressed\")
+	mini_sudoku_board.reset_board()
+"
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8qnab"]
+albedo_color = Color(0.65098, 0.137255, 0.168627, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_raiwv"]
+material = SubResource("StandardMaterial3D_8qnab")
+
+[node name="3D mini sudoku" type="Node3D"]
+script = ExtResource("1_l3kim")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15, 0, 40)
+
+[node name="MiniSudokuBoard" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0055902, 0, 0.000499487)
+script = ExtResource("2_3vk3j")
+metadata/n_rows = 3
+metadata/n_columns = 3
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.86151, 2.30288, 6.06795)
+
+[node name="BoxContainer" type="BoxContainer" parent="."]
+anchors_preset = -1
+anchor_left = 0.808
+anchor_top = 0.5
+anchor_right = 0.929
+anchor_bottom = 0.5
+offset_left = -7.0
+offset_right = 83.0
+offset_bottom = 31.0
+grow_horizontal = 0
+grow_vertical = 0
+
+[node name="RunAlgorithmButton" type="Button" parent="BoxContainer"]
+layout_mode = 2
+text = "Run!"
+script = SubResource("GDScript_ugv0h")
+
+[node name="StepAlgorithmButton" type="Button" parent="BoxContainer"]
+layout_mode = 2
+text = "Step"
+script = SubResource("GDScript_1x3l8")
+
+[node name="ResetBoardButton" type="Button" parent="BoxContainer"]
+layout_mode = 2
+text = "Reset Board"
+script = SubResource("GDScript_qplc8")
+
+[node name="GenerateBoardButton" type="Button" parent="BoxContainer"]
+layout_mode = 2
+text = "Generate board"
+script = ExtResource("3_1nsou")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -250.997
+offset_top = -73.768
+offset_right = -9.99731
+offset_bottom = -27.768
+grow_horizontal = 0
+grow_vertical = 0
+
+[node name="SpeedSlider" type="HSlider" parent="VBoxContainer"]
+clip_contents = true
+layout_mode = 2
+min_value = 0.01
+max_value = 1.0
+step = 0.01
+value = 0.5
+scrollable = false
+
+[node name="SpeedLabel" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+text = "Speed"
+horizontal_alignment = 1
+
+[node name="NRowsSlider" type="HSlider" parent="VBoxContainer"]
+layout_mode = 2
+min_value = 1.0
+max_value = 5.0
+value = 3.0
+tick_count = 5
+ticks_on_borders = true
+
+[node name="NRowsLabel" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+text = "Number of rows"
+horizontal_alignment = 1
+
+[node name="NColumnsSlider" type="HSlider" parent="VBoxContainer"]
+layout_mode = 2
+min_value = 1.0
+max_value = 5.0
+value = 3.0
+tick_count = 5
+ticks_on_borders = true
+
+[node name="NColumnsLabel" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+text = "Number of columns"
+horizontal_alignment = 1
+
+[node name="Capsule00" type="MeshInstance3D" parent="."]
+visible = false
+mesh = SubResource("SphereMesh_raiwv")

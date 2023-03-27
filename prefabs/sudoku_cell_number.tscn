@@ -1,7 +1,7 @@
-[gd_scene load_steps=6 format=3 uid="uid://dr8n563y4dsx7"]
+[gd_scene load_steps=6 format=3]
 
-[ext_resource type="Script" path="res://prefabs/NumberText.gd" id="1_0khfo"]
-[ext_resource type="Script" path="res://prefabs/mini_sudoku_cell_number.gd" id="1_60lb0"]
+[ext_resource type="Script" path="res://prefabs/number_text.gd" id="1_0khfo"]
+[ext_resource type="Script" path="res://prefabs/sudoku_cell_number.gd" id="1_60lb0"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_xnw5e"]
 albedo_color = Color(0.956863, 0.956863, 0.956863, 1)

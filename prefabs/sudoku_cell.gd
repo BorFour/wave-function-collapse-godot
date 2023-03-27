@@ -5,7 +5,7 @@ extends Node3D
 @onready var can_click = true;
 
 @onready var sudoku_board = $"..";
-@onready var cell_number_prefab = preload("res://prefabs/mini_sudoku_cell_number.tscn")
+@onready var cell_number_prefab = preload("res://prefabs/sudoku_cell_number.tscn")
 @onready var background_cell_number_prefab = preload("res://prefabs/background_cell_number.tscn")
 
 const tween_animation_step_time: float = 0.5;

@@ -127,8 +127,6 @@ func _initialize_algorithm():
 	for cell_index in range(cells.size()):
 		cells[cell_index].hide_unplayable_numbers(get_possible_plays(cell_index))
 
-	print(cells.map(func(x): return x.possible_plays.size()))
-
  
 func reset_board():
 	var apply_safe_reset = func asdf(x):
@@ -159,7 +157,7 @@ func get_possible_plays(cell_index: int) -> Array:
 		.map(func(x): return x.selected_number)
 	)
 	
-	print(numbers_played_in_neighbors)
+#	print(numbers_played_in_neighbors)
 
 	var valid_plays_for_cell = (
 		valid_numbers
@@ -172,7 +170,7 @@ func get_possible_plays(cell_index: int) -> Array:
 func has_mininum_entropy(cell_index: int) -> bool:
 	
 	var min_nonzero_entropy = (
-		range(cells.size())
+		cells
 		.map(func(x): return x.possible_plays.size())
 		.filter(func(x): return x > 0)
 		.min()
@@ -234,7 +232,10 @@ func try_to_select_number(cell_node: Node3D, selected_play: int):
 
 
 func propagate():
-	# FIXME: maybe this is not implemented correctly
+	"""Returns a boolean indicating whether the algorithm should continue."""
+	
+	var cells_without_possible_plays = [];
+
 	for cell_index in range(cells.size()):
 		var cell = cells[cell_index];
 		var possible_plays = get_possible_plays(cell_index);
@@ -245,7 +246,14 @@ func propagate():
 			not cell.is_number_selected()
 			and possible_plays.size() == 0
 		):
-			print("Kapaxao??")
+			cells_without_possible_plays.append(cell)
+			continue
+	
+	if cells_without_possible_plays.size() > 0:
+		for cell in cells_without_possible_plays:
+			cell.highlight_not_possible_plays()
+	
+	return cells_without_possible_plays.size() == 0
 
 
 func collapse_one_wave(candidates: Array):
@@ -267,11 +275,14 @@ func step() -> bool:
 		return false
 
 	collapse_one_wave(candidates)
-	propagate()
-	return true
+	return propagate()
 
 
 func run():
+	# Maybe wave function collapse doesn't always find a solution
+	# SEE: https://news.ycombinator.com/item?id=18445466
+	# SEE: https://dev.to/aspittel/how-i-finally-wrote-a-sudoku-solver-177g
+
 	is_algorithm_running = true;
 	while is_algorithm_running:
 		var can_continue = step()

@@ -1,7 +1,14 @@
-[gd_scene load_steps=2 format=3 uid="uid://lmohjy11ieur"]
+[gd_scene load_steps=4 format=3 uid="uid://lmohjy11ieur"]
+
+[ext_resource type="Script" path="res://prefabs/background_cell_number.gd" id="1_omlks"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_kc0o7"]
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_ymig3"]
+resource_local_to_scene = true
+material = SubResource("StandardMaterial3D_kc0o7")
 
 [node name="BackgroundNumberCell" type="MeshInstance3D"]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0)
 mesh = SubResource("PlaneMesh_ymig3")
+script = ExtResource("1_omlks")

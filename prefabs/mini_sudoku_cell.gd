@@ -1,26 +1,28 @@
 extends Node3D
 
-@onready var number_cells = []
 
 @onready var select_mutex = Mutex.new();
 @onready var can_click = true;
-const tween_animation_step_time: float = 0.5;
-const n_shakes_incorrect_play: int = 3;
 
 @onready var sudoku_board = $"..";
 @onready var cell_number_prefab = preload("res://prefabs/mini_sudoku_cell_number.tscn")
 @onready var background_cell_number_prefab = preload("res://prefabs/background_cell_number.tscn")
+
+const tween_animation_step_time: float = 0.5;
+const n_shakes_incorrect_play: int = 3;
+
+var number_cells = []
+var background_nodes = [];
+
 var n_rows: int;
 var n_columns: int;
 
-var selected_number = null;
-
 # Algorithm variables
+var selected_number = null;
 var possible_plays: Array = []
 
 
 func _ready():
-	# TODO: generate dynamically the sudoku number
 	n_rows = sudoku_board.n_rows;
 	n_columns = sudoku_board.n_columns;
 	_spawn_number_nodes()
@@ -34,10 +36,6 @@ func __cell_number_position(column_number: int, row_number: int) -> Vector3:
 
 
 func _spawn_number_nodes():
-	# TODO: creates the nodes for each of the numbers and attaches them as children to the Sudoku Cell
-	# From left to right from button up, add to the dictionary using numbers from 1 to 6.
-	# FIXME: why not use an array instead? Seems a bit inconsistent with the way the board
-	# stores the reference to its cell children	
 	for r in range(n_rows):
 		for c in range(n_columns):
 			var child = cell_number_prefab.instantiate();
@@ -57,6 +55,7 @@ func _spawn_background():
 			var child = background_cell_number_prefab.instantiate();
 			child.position = __cell_number_position(c, r)
 			add_child(child)
+			background_nodes.append(child)
 
 
 func spawn(spawn_position: Vector3):
@@ -124,6 +123,9 @@ func _delect_selected_number():
 func safe_reset():
 	select_mutex.lock()
 	can_click = false;
+	
+	for node in background_nodes:
+		node.reset_material()
 	
 	if is_number_selected():
 		_delect_selected_number()
@@ -199,3 +201,7 @@ func shake_incorrect_play():
 	tween.tween_callback(_set_can_click_to_true)
 	select_mutex.unlock();
 	
+func highlight_not_possible_plays():
+	"""Changes the appearance of the cell when it doesn't have any possible choices left."""
+	for node in background_nodes:
+		node.change_to_not_possible_plays()

@@ -8,13 +8,13 @@
 script/source = "extends Button
 
 
-@onready var mini_sudoku_board = $\"../../MiniSudokuBoard\";
+@onready var sudoku_board = $\"../../SudokuBoard\";
 
 
 func _pressed():
-	if not mini_sudoku_board.is_algorithm_running:
+	if not sudoku_board.is_algorithm_running:
 		print(\"Run!\")
-		mini_sudoku_board.run()
+		sudoku_board.run()
 	else:
 		print(\"Can't run algorithm again because it is already running!\")
 "
@@ -23,24 +23,24 @@ func _pressed():
 script/source = "extends Button
 
 
-@onready var mini_sudoku_board = $\"../../MiniSudokuBoard\";
+@onready var sudoku_board = $\"../../SudokuBoard\";
 
 
 func _pressed():
 	print(\"Step!\")
-	mini_sudoku_board.step()
+	sudoku_board.step()
 "
 
 [sub_resource type="GDScript" id="GDScript_qplc8"]
 script/source = "extends Button
 
 
-@onready var mini_sudoku_board = $\"../../MiniSudokuBoard\";
+@onready var sudoku_board = $\"../../SudokuBoard\";
 
 
 func _pressed():
 	print(\"Reset board pressed\")
-	mini_sudoku_board.reset_board()
+	sudoku_board.reset_board()
 "
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8qnab"]
@@ -49,13 +49,13 @@ albedo_color = Color(0.65098, 0.137255, 0.168627, 1)
 [sub_resource type="SphereMesh" id="SphereMesh_raiwv"]
 material = SubResource("StandardMaterial3D_8qnab")
 
-[node name="3D mini sudoku" type="Node3D"]
+[node name="3D Sudoku scene" type="Node3D"]
 script = ExtResource("1_l3kim")
 
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15, 0, 40)
 
-[node name="MiniSudokuBoard" type="Node3D" parent="."]
+[node name="SudokuBoard" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0055902, 0, 0.000499487)
 script = ExtResource("2_3vk3j")
 metadata/n_rows = 3

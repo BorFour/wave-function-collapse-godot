@@ -9,7 +9,7 @@ albedo_color = Color(0.0588235, 0.0588235, 0.0588235, 1)
 material = SubResource("StandardMaterial3D_7hb1r")
 size = Vector2(2, 0.05)
 
-[node name="MiniSudokuCell" type="Node3D"]
+[node name="SudokuCell" type="Node3D"]
 script = ExtResource("1_qu5ye")
 metadata/SelectedNumber = -1
 

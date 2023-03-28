@@ -1,11 +1,11 @@
 extends Node3D
 
 @onready var camera = $Camera3D;
-@onready var mini_sudoku_board = $MiniSudokuBoard;
+@onready var sudoku_board = $SudokuBoard;
 
 
 func _ready():
-	position_camera(mini_sudoku_board.get_meta("n_rows"), mini_sudoku_board.get_meta("n_columns"))
+	position_camera(sudoku_board.get_meta("n_rows"), sudoku_board.get_meta("n_columns"))
 
 
 func position_camera(n_rows: int, n_columns: int):
@@ -45,6 +45,6 @@ func _unhandled_input(event):
 			var cell_node = cell_number_node.get_parent()
 
 			if cell_node.can_be_clicked():
-				mini_sudoku_board.try_to_select_number(cell_node, number_selected)
+				sudoku_board.try_to_select_number(cell_node, number_selected)
 			else:
 				print("Can't click the cell right now")

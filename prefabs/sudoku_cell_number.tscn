@@ -1,7 +1,7 @@
-[gd_scene load_steps=6 format=3 uid="uid://dr8n563y4dsx7"]
+[gd_scene load_steps=6 format=3 uid="uid://cq1ou5vhqlk6m"]
 
-[ext_resource type="Script" path="res://prefabs/NumberText.gd" id="1_0khfo"]
-[ext_resource type="Script" path="res://prefabs/mini_sudoku_cell_number.gd" id="1_60lb0"]
+[ext_resource type="Script" path="res://prefabs/number_text.gd" id="1_0khfo"]
+[ext_resource type="Script" path="res://prefabs/sudoku_cell_number.gd" id="1_60lb0"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_xnw5e"]
 albedo_color = Color(0.956863, 0.956863, 0.956863, 1)
@@ -15,25 +15,27 @@ material = SubResource("StandardMaterial3D_xnw5e")
 [sub_resource type="BoxShape3D" id="BoxShape3D_d64ov"]
 size = Vector3(1.78834, 0.224985, 1.80672)
 
-[node name="MiniSudokuCellNumber" type="MeshInstance3D"]
-transform = Transform3D(0.5, 0, 0, 0, -2.18557e-08, -0.5, 0, 0.5, -2.18557e-08, -0.5, 1.5, 0)
+[node name="SudokuCellNumber" type="MeshInstance3D"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0)
+layers = 2
 mesh = SubResource("PlaneMesh_t6xc4")
 script = ExtResource("1_60lb0")
 metadata/CellNumber = 0
 
 [node name="NumberText" type="Label3D" parent="."]
-transform = Transform3D(0.999998, -0.0021293, -9.30747e-11, 0, -4.37114e-08, 1, -0.0021293, -0.999998, -4.37113e-08, 0, 0.01, 0)
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0)
 alpha_antialiasing_mode = 1
 alpha_antialiasing_edge = 0.38
 modulate = Color(0, 0, 0, 1)
 outline_modulate = Color(0.709804, 0.709804, 0.709804, 1)
 text = "0"
-font_size = 250
+font_size = 150
 outline_size = 5
 script = ExtResource("1_0khfo")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0316474, 1.38333e-09, 0.0316467)
+collision_layer = 2
+collision_mask = 2
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.000158237, -6.91658e-12, -0.000158234)
